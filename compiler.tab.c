@@ -137,10 +137,10 @@ enum yysymbol_kind_t
   YYSYMBOL_repetition = 34,                /* repetition  */
   YYSYMBOL_comparison = 35,                /* comparison  */
   YYSYMBOL_verification = 36,              /* verification  */
-  YYSYMBOL_bool = 37,                      /* bool  */
-  YYSYMBOL_expr = 38,                      /* expr  */
-  YYSYMBOL_term = 39,                      /* term  */
-  YYSYMBOL_factor = 40,                    /* factor  */
+  YYSYMBOL_expr = 37,                      /* expr  */
+  YYSYMBOL_term = 38,                      /* term  */
+  YYSYMBOL_factor = 39,                    /* factor  */
+  YYSYMBOL_bool = 40,                      /* bool  */
   YYSYMBOL_unary = 41                      /* unary  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
@@ -469,16 +469,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  14
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   101
+#define YYLAST   86
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  29
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  13
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  35
+#define YYNRULES  34
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  75
+#define YYNSTATES  71
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   273
@@ -529,10 +529,10 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    30,    30,    32,    33,    35,    36,    37,    38,    39,
-      41,    42,    44,    46,    47,    49,    50,    51,    52,    53,
-      54,    55,    57,    58,    60,    61,    62,    64,    65,    66,
-      67,    69,    70,    71,    72,    74
+       0,    30,    30,    32,    33,    35,    36,    37,    38,    40,
+      41,    43,    45,    47,    48,    49,    50,    51,    52,    53,
+      55,    56,    57,    59,    60,    61,    62,    64,    65,    66,
+      67,    68,    70,    71,    73
 };
 #endif
 
@@ -554,8 +554,8 @@ static const char *const yytname[] =
   "TOK_Minor_LEFTEqual", "TOK_Big_LEFTEqual", "TOK_BIG_RIGHT",
   "TOK_BIG_LEFT", "'='", "';'", "'('", "')'", "'{'", "'}'", "'+'", "'-'",
   "'*'", "'/'", "$accept", "program", "globals", "global", "decision",
-  "repetition", "comparison", "verification", "bool", "expr", "term",
-  "factor", "unary", YY_NULLPTR
+  "repetition", "comparison", "verification", "expr", "term", "factor",
+  "bool", "unary", YY_NULLPTR
 };
 
 static const char *
@@ -565,7 +565,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-20)
+#define YYPACT_NINF (-29)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -579,14 +579,14 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      74,    -4,    23,    10,    21,    53,    74,   -20,   -20,   -20,
-      -2,    38,    73,     4,   -20,   -20,   -20,   -20,   -20,   -20,
-     -20,    11,    15,    43,    60,    -5,   -20,   -20,   -20,    59,
-      75,    68,    56,   -14,   -20,   -20,   -20,    11,    11,    15,
-      15,     4,    28,    69,   -20,   -20,   -20,   -20,   -20,   -20,
-     -20,    11,   -20,    -5,    -5,   -20,   -20,    71,   -20,    74,
-      25,    90,    24,    76,    83,    11,    77,    40,    74,    78,
-      35,    74,   -20,    51,   -20
+      38,   -11,    42,    50,    51,    59,    38,   -29,   -29,   -29,
+      -2,    53,    71,    -2,   -29,   -29,   -29,   -29,   -29,   -29,
+     -29,    -2,     4,    18,     1,   -29,   -29,   -29,   -29,    55,
+      54,    52,    29,   -29,   -29,    -2,    -2,     4,     4,    -2,
+      56,   -29,   -29,   -29,   -29,   -29,   -29,   -29,    -2,   -29,
+       1,     1,   -29,   -29,    60,    38,    24,    78,    11,    63,
+      72,    -2,    61,    36,    38,    62,    13,    38,   -29,    22,
+     -29
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -594,27 +594,27 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,     0,     0,     0,     2,     4,     9,     8,
-       0,     0,     0,     0,     1,     3,    31,    33,    32,    22,
-      23,     0,     0,     0,     0,    26,    29,    34,     7,     0,
-      31,     0,     0,     0,    35,     6,     5,     0,     0,     0,
-       0,     0,     0,     0,    17,    16,    15,    19,    18,    21,
-      20,     0,    30,    24,    25,    27,    28,     0,    14,     0,
-      13,     0,     0,     0,    10,     0,     0,     0,     0,     0,
-       0,     0,    11,     0,    12
+       0,     0,     0,     0,     0,     0,     2,     4,     8,     7,
+       0,     0,     0,     0,     1,     3,    27,    29,    28,    32,
+      33,     0,     0,     0,    22,    25,    30,    31,     6,     0,
+       0,     0,     0,    34,     5,     0,     0,     0,     0,     0,
+       0,    15,    14,    13,    17,    16,    19,    18,     0,    26,
+      20,    21,    23,    24,     0,     0,    12,     0,     0,     0,
+       9,     0,     0,     0,     0,     0,     0,     0,    10,     0,
+      11
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -20,   -20,   -19,    -6,   -20,   -20,    55,   -20,    57,    -8,
-      50,     7,   -20
+     -29,   -29,   -28,    -6,   -29,   -29,    47,   -29,    -8,    21,
+      -4,   -29,   -29
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     5,     6,     7,     8,     9,    31,    51,    23,    32,
+       0,     5,     6,     7,     8,     9,    30,    48,    31,    24,
       25,    26,    27
 };
 
@@ -623,32 +623,28 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      15,    16,    24,    17,    18,    19,    20,    30,    52,    17,
-      18,    37,    38,    33,    16,    10,    17,    18,    16,    21,
-      17,    18,    39,    40,    22,    21,    11,     1,     2,    34,
-      22,    12,    21,     3,     4,    19,    20,    22,     1,     2,
-      62,    22,    13,    60,     3,     4,    55,    56,    64,    70,
-      37,    38,    73,    14,     1,     2,    15,    67,    28,    72,
-       3,     4,    69,    35,    15,    37,    38,    15,    44,    45,
-      46,    47,    48,    49,    50,    74,    29,     1,     2,    41,
-      36,    37,    38,     3,     4,    37,    38,    53,    54,    42,
-      43,    61,    59,    63,    66,    65,    57,     0,     0,    58,
-      68,    71
+      15,    16,    23,    17,    18,    19,    20,    16,    10,    17,
+      18,    19,    20,    32,     1,     2,     1,     2,    33,    21,
+       3,     4,     3,     4,    22,     1,     2,    58,    37,    38,
+      22,     3,     4,    52,    53,    60,    66,    68,    34,    69,
+      56,     1,     2,    35,    36,    11,    70,     3,     4,    35,
+      36,    49,    15,    63,    35,    36,    50,    51,    65,    14,
+      15,    35,    36,    15,    41,    42,    43,    44,    45,    46,
+      47,    12,    13,    28,    29,    39,    40,    35,    36,    55,
+      57,    59,    61,    62,    64,    67,    54
 };
 
 static const yytype_int8 yycheck[] =
 {
-       6,     3,    10,     5,     6,     7,     8,     3,    22,     5,
-       6,    25,    26,    21,     3,    19,     5,     6,     3,    21,
-       5,     6,    27,    28,    26,    21,     3,     3,     4,    22,
-      26,    21,    21,     9,    10,     7,     8,    26,     3,     4,
-      59,    26,    21,    51,     9,    10,    39,    40,    24,    68,
-      25,    26,    71,     0,     3,     4,    62,    65,    20,    24,
-       9,    10,    22,    20,    70,    25,    26,    73,    12,    13,
-      14,    15,    16,    17,    18,    24,     3,     3,     4,    20,
-      20,    25,    26,     9,    10,    25,    26,    37,    38,    14,
-      22,    20,    23,     3,    11,    19,    41,    -1,    -1,    42,
-      23,    23
+       6,     3,    10,     5,     6,     7,     8,     3,    19,     5,
+       6,     7,     8,    21,     3,     4,     3,     4,    22,    21,
+       9,    10,     9,    10,    26,     3,     4,    55,    27,    28,
+      26,     9,    10,    37,    38,    24,    64,    24,    20,    67,
+      48,     3,     4,    25,    26,     3,    24,     9,    10,    25,
+      26,    22,    58,    61,    25,    26,    35,    36,    22,     0,
+      66,    25,    26,    69,    12,    13,    14,    15,    16,    17,
+      18,    21,    21,    20,     3,    20,    22,    25,    26,    23,
+      20,     3,    19,    11,    23,    23,    39
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -658,29 +654,29 @@ static const yytype_int8 yystos[] =
        0,     3,     4,     9,    10,    30,    31,    32,    33,    34,
       19,     3,    21,    21,     0,    32,     3,     5,     6,     7,
        8,    21,    26,    37,    38,    39,    40,    41,    20,     3,
-       3,    35,    38,    38,    40,    20,    20,    25,    26,    27,
-      28,    20,    14,    22,    12,    13,    14,    15,    16,    17,
-      18,    36,    22,    39,    39,    40,    40,    35,    37,    23,
-      38,    20,    31,     3,    24,    19,    11,    38,    23,    22,
-      31,    23,    24,    31,    24
+      35,    37,    37,    39,    20,    25,    26,    27,    28,    20,
+      22,    12,    13,    14,    15,    16,    17,    18,    36,    22,
+      38,    38,    39,    39,    35,    23,    37,    20,    31,     3,
+      24,    19,    11,    37,    23,    22,    31,    23,    24,    31,
+      24
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    29,    30,    31,    31,    32,    32,    32,    32,    32,
-      33,    33,    34,    35,    35,    36,    36,    36,    36,    36,
-      36,    36,    37,    37,    38,    38,    38,    39,    39,    39,
-      39,    40,    40,    40,    40,    41
+       0,    29,    30,    31,    31,    32,    32,    32,    32,    33,
+      33,    34,    35,    36,    36,    36,    36,    36,    36,    36,
+      37,    37,    37,    38,    38,    38,    38,    39,    39,    39,
+      39,    39,    40,    40,    41
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     2,     1,     4,     4,     3,     1,     1,
-       7,    11,    13,     3,     3,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     3,     3,     1,     3,     3,     1,
-       3,     1,     1,     1,     1,     2
+       0,     2,     1,     2,     1,     4,     3,     1,     1,     7,
+      11,    13,     3,     1,     1,     1,     1,     1,     1,     1,
+       3,     3,     1,     3,     3,     1,     3,     1,     1,     1,
+       1,     1,     1,     1,     2
 };
 
 
@@ -1416,203 +1412,197 @@ yyreduce:
   case 3: /* globals: globals global  */
 #line 32 "compiler.y"
                          {}
-#line 1420 "compiler.tab.c"
+#line 1416 "compiler.tab.c"
     break;
 
   case 4: /* globals: global  */
 #line 33 "compiler.y"
                  {}
-#line 1426 "compiler.tab.c"
+#line 1422 "compiler.tab.c"
     break;
 
   case 5: /* global: TOK_IDENT '=' expr ';'  */
 #line 35 "compiler.y"
                                 {}
-#line 1432 "compiler.tab.c"
+#line 1428 "compiler.tab.c"
     break;
 
-  case 6: /* global: TOK_IDENT '=' bool ';'  */
+  case 6: /* global: TOK_PRINT TOK_IDENT ';'  */
 #line 36 "compiler.y"
-                                {}
-#line 1438 "compiler.tab.c"
+                                 {}
+#line 1434 "compiler.tab.c"
     break;
 
-  case 7: /* global: TOK_PRINT TOK_IDENT ';'  */
+  case 7: /* global: repetition  */
 #line 37 "compiler.y"
-                                 {}
-#line 1444 "compiler.tab.c"
-    break;
-
-  case 8: /* global: repetition  */
-#line 38 "compiler.y"
                     {}
-#line 1450 "compiler.tab.c"
+#line 1440 "compiler.tab.c"
     break;
 
-  case 9: /* global: decision  */
-#line 39 "compiler.y"
+  case 8: /* global: decision  */
+#line 38 "compiler.y"
                   {}
-#line 1456 "compiler.tab.c"
+#line 1446 "compiler.tab.c"
     break;
 
-  case 10: /* decision: TOK_IF '(' comparison ')' '{' globals '}'  */
+  case 9: /* decision: TOK_IF '(' comparison ')' '{' globals '}'  */
+#line 40 "compiler.y"
+                                                   {}
+#line 1452 "compiler.tab.c"
+    break;
+
+  case 10: /* decision: TOK_IF '(' comparison ')' '{' globals '}' TOK_ELSE '{' globals '}'  */
 #line 41 "compiler.y"
-                                                    {}
-#line 1462 "compiler.tab.c"
-    break;
-
-  case 11: /* decision: TOK_IF '(' comparison ')' '{' globals '}' TOK_ELSE '{' globals '}'  */
-#line 42 "compiler.y"
                                                                              {}
-#line 1468 "compiler.tab.c"
+#line 1458 "compiler.tab.c"
     break;
 
-  case 12: /* repetition: TOK_FOR '(' TOK_IDENT ';' comparison ';' TOK_IDENT '=' expr ')' '{' globals '}'  */
-#line 44 "compiler.y"
+  case 11: /* repetition: TOK_FOR '(' TOK_IDENT ';' comparison ';' TOK_IDENT '=' expr ')' '{' globals '}'  */
+#line 43 "compiler.y"
                                                                                           {}
-#line 1474 "compiler.tab.c"
+#line 1464 "compiler.tab.c"
     break;
 
-  case 13: /* comparison: expr verification expr  */
-#line 46 "compiler.y"
+  case 12: /* comparison: expr verification expr  */
+#line 45 "compiler.y"
                                      {}
-#line 1480 "compiler.tab.c"
+#line 1470 "compiler.tab.c"
     break;
 
-  case 14: /* comparison: TOK_IDENT TOK_EQUALS bool  */
+  case 13: /* verification: TOK_EQUALS  */
 #line 47 "compiler.y"
-                                        {}
-#line 1486 "compiler.tab.c"
-    break;
-
-  case 15: /* verification: TOK_EQUALS  */
-#line 49 "compiler.y"
                           {}
-#line 1492 "compiler.tab.c"
+#line 1476 "compiler.tab.c"
     break;
 
-  case 16: /* verification: TOK_OR  */
+  case 14: /* verification: TOK_OR  */
+#line 48 "compiler.y"
+                      {}
+#line 1482 "compiler.tab.c"
+    break;
+
+  case 15: /* verification: TOK_AND  */
+#line 49 "compiler.y"
+                       {}
+#line 1488 "compiler.tab.c"
+    break;
+
+  case 16: /* verification: TOK_Big_LEFTEqual  */
 #line 50 "compiler.y"
-                      {}
-#line 1498 "compiler.tab.c"
-    break;
-
-  case 17: /* verification: TOK_AND  */
-#line 51 "compiler.y"
-                       {}
-#line 1504 "compiler.tab.c"
-    break;
-
-  case 18: /* verification: TOK_Big_LEFTEqual  */
-#line 52 "compiler.y"
                                  {}
-#line 1510 "compiler.tab.c"
+#line 1494 "compiler.tab.c"
     break;
 
-  case 19: /* verification: TOK_Minor_LEFTEqual  */
-#line 53 "compiler.y"
+  case 17: /* verification: TOK_Minor_LEFTEqual  */
+#line 51 "compiler.y"
                                    {}
-#line 1516 "compiler.tab.c"
+#line 1500 "compiler.tab.c"
     break;
 
-  case 20: /* verification: TOK_BIG_LEFT  */
-#line 54 "compiler.y"
+  case 18: /* verification: TOK_BIG_LEFT  */
+#line 52 "compiler.y"
                             {}
-#line 1522 "compiler.tab.c"
+#line 1506 "compiler.tab.c"
     break;
 
-  case 21: /* verification: TOK_BIG_RIGHT  */
-#line 55 "compiler.y"
+  case 19: /* verification: TOK_BIG_RIGHT  */
+#line 53 "compiler.y"
                              {}
-#line 1528 "compiler.tab.c"
+#line 1512 "compiler.tab.c"
     break;
 
-  case 22: /* bool: TOK_TRUE  */
+  case 20: /* expr: expr '+' term  */
+#line 55 "compiler.y"
+                     {}
+#line 1518 "compiler.tab.c"
+    break;
+
+  case 21: /* expr: expr '-' term  */
+#line 56 "compiler.y"
+                     {}
+#line 1524 "compiler.tab.c"
+    break;
+
+  case 22: /* expr: term  */
 #line 57 "compiler.y"
-               {}
-#line 1534 "compiler.tab.c"
-    break;
-
-  case 23: /* bool: TOK_FALSE  */
-#line 58 "compiler.y"
-                {}
-#line 1540 "compiler.tab.c"
-    break;
-
-  case 24: /* expr: expr '+' term  */
-#line 60 "compiler.y"
-                     {}
-#line 1546 "compiler.tab.c"
-    break;
-
-  case 25: /* expr: expr '-' term  */
-#line 61 "compiler.y"
-                     {}
-#line 1552 "compiler.tab.c"
-    break;
-
-  case 26: /* expr: term  */
-#line 62 "compiler.y"
             {}
-#line 1558 "compiler.tab.c"
+#line 1530 "compiler.tab.c"
     break;
 
-  case 27: /* term: term '*' factor  */
-#line 64 "compiler.y"
-                      {}
-#line 1564 "compiler.tab.c"
-    break;
-
-  case 28: /* term: term '/' factor  */
-#line 65 "compiler.y"
+  case 23: /* term: term '*' factor  */
+#line 59 "compiler.y"
                        {}
-#line 1570 "compiler.tab.c"
+#line 1536 "compiler.tab.c"
     break;
 
-  case 29: /* term: factor  */
-#line 66 "compiler.y"
-             {}
-#line 1576 "compiler.tab.c"
+  case 24: /* term: term '/' factor  */
+#line 60 "compiler.y"
+                       {}
+#line 1542 "compiler.tab.c"
     break;
 
-  case 30: /* term: '(' expr ')'  */
-#line 67 "compiler.y"
+  case 25: /* term: factor  */
+#line 61 "compiler.y"
+              {}
+#line 1548 "compiler.tab.c"
+    break;
+
+  case 26: /* term: '(' expr ')'  */
+#line 62 "compiler.y"
+                    {}
+#line 1554 "compiler.tab.c"
+    break;
+
+  case 27: /* factor: TOK_IDENT  */
+#line 64 "compiler.y"
                    {}
-#line 1582 "compiler.tab.c"
+#line 1560 "compiler.tab.c"
     break;
 
-  case 31: /* factor: TOK_IDENT  */
-#line 69 "compiler.y"
-                  {}
-#line 1588 "compiler.tab.c"
+  case 28: /* factor: TOK_INT  */
+#line 65 "compiler.y"
+                 {}
+#line 1566 "compiler.tab.c"
     break;
 
-  case 32: /* factor: TOK_INT  */
+  case 29: /* factor: TOK_FLOAT  */
+#line 66 "compiler.y"
+                   {}
+#line 1572 "compiler.tab.c"
+    break;
+
+  case 30: /* factor: bool  */
+#line 67 "compiler.y"
+              {}
+#line 1578 "compiler.tab.c"
+    break;
+
+  case 31: /* factor: unary  */
+#line 68 "compiler.y"
+               {}
+#line 1584 "compiler.tab.c"
+    break;
+
+  case 32: /* bool: TOK_TRUE  */
 #line 70 "compiler.y"
                 {}
-#line 1594 "compiler.tab.c"
+#line 1590 "compiler.tab.c"
     break;
 
-  case 33: /* factor: TOK_FLOAT  */
+  case 33: /* bool: TOK_FALSE  */
 #line 71 "compiler.y"
-                  {}
-#line 1600 "compiler.tab.c"
+                 {}
+#line 1596 "compiler.tab.c"
     break;
 
-  case 34: /* factor: unary  */
-#line 72 "compiler.y"
-              {}
+  case 34: /* unary: '-' factor  */
+#line 73 "compiler.y"
+                  {}
+#line 1602 "compiler.tab.c"
+    break;
+
+
 #line 1606 "compiler.tab.c"
-    break;
-
-  case 35: /* unary: '-' factor  */
-#line 74 "compiler.y"
-                  {}
-#line 1612 "compiler.tab.c"
-    break;
-
-
-#line 1616 "compiler.tab.c"
 
       default: break;
     }
@@ -1836,4 +1826,4 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 76 "compiler.y"
+#line 75 "compiler.y"

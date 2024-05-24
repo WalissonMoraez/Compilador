@@ -30,46 +30,45 @@ int yylex(void);
 program : globals ;
 
 globals : globals global {}
-globals : global {}
+        | global {}
 
 global : TOK_IDENT '=' expr ';' {}
-global : TOK_IDENT '=' bool ';' {}
-global : TOK_PRINT TOK_IDENT ';' {}
-global : repetition {}
-global : decision {}
+       | TOK_PRINT TOK_IDENT ';' {}
+       | repetition {}
+       | decision {}
 
-decision: TOK_IF '(' comparison ')' '{' globals '}' {}
-decision: TOK_IF '(' comparison ')' '{' globals '}' TOK_ELSE '{' globals '}' {}
+decision: TOK_IF '(' comparison')' '{' globals '}' {}
+        | TOK_IF '(' comparison ')' '{' globals '}' TOK_ELSE '{' globals '}' {}
 
 repetition:  TOK_FOR'(' TOK_IDENT ';' comparison ';' TOK_IDENT '=' expr')''{' globals '}' {}
 
 comparison  : expr verification expr {}
-comparison  : TOK_IDENT TOK_EQUALS bool {}
 
 verification : TOK_EQUALS {}
-verification : TOK_OR {}
-verification : TOK_AND {}
-verification : TOK_Big_LEFTEqual {}
-verification : TOK_Minor_LEFTEqual {}
-verification : TOK_BIG_LEFT {}
-verification : TOK_BIG_RIGHT {}
+             | TOK_OR {}
+             | TOK_AND {}
+             | TOK_Big_LEFTEqual {}
+             | TOK_Minor_LEFTEqual {}
+             | TOK_BIG_LEFT {}
+             | TOK_BIG_RIGHT {}
          
-bool: TOK_TRUE {}
-bool: TOK_FALSE {}
-
 expr : expr '+' term {}
-expr : expr '-' term {}
-expr : term {}
+     | expr '-' term {}
+     | term {}
 
-term : term '*' factor{}
-term : term '/' factor {}
-term : factor{}
-term : '(' expr ')'{}
+term : term '*' factor {}
+     | term '/' factor {}
+     | factor {}
+     | '(' expr ')' {}
 
-factor : TOK_IDENT{}
-factor : TOK_INT{}
-factor : TOK_FLOAT{}
-factor : unary{}
+factor : TOK_IDENT {}
+       | TOK_INT {}
+       | TOK_FLOAT {}
+       | bool {}
+       | unary {}
+
+bool : TOK_TRUE {}
+     | TOK_FALSE {}
 
 unary : '-' factor{}
 

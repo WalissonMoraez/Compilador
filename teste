@@ -5,12 +5,11 @@ C = A + B;
 print C;
 F = FALSE;
 
-if(F == TRUE){
-    print C; 
-}
-
-if(A<10){
-    oi=1;
-}else{
-    f=1;
+for( i ; i == TRUE; i=i+1)
+{
+    if(A && 10){
+        oi=1;
+    }else{
+        f=1;
+    }
 }
