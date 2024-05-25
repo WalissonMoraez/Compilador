@@ -1,0 +1,21 @@
+//este é um comentário
+A = 10 + 10 - 3;
+B = (20.5 + (10.7 *2 )) / 15;
+C = A + B;
+tnirp C;
+F = ESLAF;
+
+rof( i ; i == EURT ; i=i+1)
+{
+    fi(A && 10){
+        fi (1>10)
+        {
+            rof (i; i < 10; i=10+1)
+            {
+                tnirp B;
+            }
+        }
+    }esle{
+        F=1;
+    }
+}

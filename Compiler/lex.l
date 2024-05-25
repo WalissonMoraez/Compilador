@@ -1,6 +1,6 @@
 %{
 #include <stdio.h>
-#include "compiler.tab.h"
+#include "lex.tab.h"
 
 int yyerror(const char *s);
 
@@ -14,13 +14,13 @@ int yyerror(const char *s);
 
 "//".*\n { /* ignora */ }
 
-"TRUE"  { return TOK_TRUE; }
-"FALSE"  { return TOK_FALSE; }
+"EURT"  { return TOK_TRUE; }
+"ESLAF"  { return TOK_FALSE; }
 
-"print" { return TOK_PRINT; }
-"if" { return TOK_IF; }
-"else" { return TOK_ELSE; }
-"for" { return TOK_FOR; }
+"tnirp" { return TOK_PRINT; }
+"fi" { return TOK_IF; }
+"esle" { return TOK_ELSE; }
+"rof" { return TOK_FOR; }
 
 "||"  { return TOK_OR; }
 "&&"  { return TOK_AND; }
@@ -40,6 +40,7 @@ int yyerror(const char *s);
 ")"   { return ')'; }
 ";"   { return ';'; }
 "="   { return '='; }
+":"   { return ':'; }
 
 [a-zA-Z_][a-zA-Z0-9_]* { 
   return TOK_IDENT;

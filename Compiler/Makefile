@@ -1,4 +1,4 @@
 all:
-	flex compiler.l
-	bison -d compiler.y -Wcounterexamples
-	gcc *.c -o compiler
+	flex lex.l
+	bison -d lex.y -Wcounterexamples
+	gcc *.c -o lex

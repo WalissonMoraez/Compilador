@@ -67,12 +67,12 @@
 
 
 /* First part of user prologue.  */
-#line 2 "compiler.y"
+#line 2 "lex.y"
 
 int yyerror(const char *s);
 int yylex(void);
 
-#line 76 "compiler.tab.c"
+#line 76 "lex.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -95,7 +95,7 @@ int yylex(void);
 #  endif
 # endif
 
-#include "compiler.tab.h"
+#include "lex.tab.h"
 /* Symbol kind.  */
 enum yysymbol_kind_t
 {
@@ -1410,199 +1410,199 @@ yyreduce:
   switch (yyn)
     {
   case 3: /* globals: globals global  */
-#line 32 "compiler.y"
+#line 32 "lex.y"
                          {}
-#line 1416 "compiler.tab.c"
+#line 1416 "lex.tab.c"
     break;
 
   case 4: /* globals: global  */
-#line 33 "compiler.y"
+#line 33 "lex.y"
                  {}
-#line 1422 "compiler.tab.c"
+#line 1422 "lex.tab.c"
     break;
 
   case 5: /* global: TOK_IDENT '=' expr ';'  */
-#line 35 "compiler.y"
+#line 35 "lex.y"
                                 {}
-#line 1428 "compiler.tab.c"
+#line 1428 "lex.tab.c"
     break;
 
   case 6: /* global: TOK_PRINT TOK_IDENT ';'  */
-#line 36 "compiler.y"
+#line 36 "lex.y"
                                  {}
-#line 1434 "compiler.tab.c"
+#line 1434 "lex.tab.c"
     break;
 
   case 7: /* global: repetition  */
-#line 37 "compiler.y"
+#line 37 "lex.y"
                     {}
-#line 1440 "compiler.tab.c"
+#line 1440 "lex.tab.c"
     break;
 
   case 8: /* global: decision  */
-#line 38 "compiler.y"
+#line 38 "lex.y"
                   {}
-#line 1446 "compiler.tab.c"
+#line 1446 "lex.tab.c"
     break;
 
   case 9: /* decision: TOK_IF '(' comparison ')' '{' globals '}'  */
-#line 40 "compiler.y"
+#line 40 "lex.y"
                                                    {}
-#line 1452 "compiler.tab.c"
+#line 1452 "lex.tab.c"
     break;
 
   case 10: /* decision: TOK_IF '(' comparison ')' '{' globals '}' TOK_ELSE '{' globals '}'  */
-#line 41 "compiler.y"
+#line 41 "lex.y"
                                                                              {}
-#line 1458 "compiler.tab.c"
+#line 1458 "lex.tab.c"
     break;
 
   case 11: /* repetition: TOK_FOR '(' TOK_IDENT ';' comparison ';' TOK_IDENT '=' expr ')' '{' globals '}'  */
-#line 43 "compiler.y"
+#line 43 "lex.y"
                                                                                           {}
-#line 1464 "compiler.tab.c"
+#line 1464 "lex.tab.c"
     break;
 
   case 12: /* comparison: expr verification expr  */
-#line 45 "compiler.y"
+#line 45 "lex.y"
                                      {}
-#line 1470 "compiler.tab.c"
+#line 1470 "lex.tab.c"
     break;
 
   case 13: /* verification: TOK_EQUALS  */
-#line 47 "compiler.y"
+#line 47 "lex.y"
                           {}
-#line 1476 "compiler.tab.c"
+#line 1476 "lex.tab.c"
     break;
 
   case 14: /* verification: TOK_OR  */
-#line 48 "compiler.y"
+#line 48 "lex.y"
                       {}
-#line 1482 "compiler.tab.c"
+#line 1482 "lex.tab.c"
     break;
 
   case 15: /* verification: TOK_AND  */
-#line 49 "compiler.y"
+#line 49 "lex.y"
                        {}
-#line 1488 "compiler.tab.c"
+#line 1488 "lex.tab.c"
     break;
 
   case 16: /* verification: TOK_Big_LEFTEqual  */
-#line 50 "compiler.y"
+#line 50 "lex.y"
                                  {}
-#line 1494 "compiler.tab.c"
+#line 1494 "lex.tab.c"
     break;
 
   case 17: /* verification: TOK_Minor_LEFTEqual  */
-#line 51 "compiler.y"
+#line 51 "lex.y"
                                    {}
-#line 1500 "compiler.tab.c"
+#line 1500 "lex.tab.c"
     break;
 
   case 18: /* verification: TOK_BIG_LEFT  */
-#line 52 "compiler.y"
+#line 52 "lex.y"
                             {}
-#line 1506 "compiler.tab.c"
+#line 1506 "lex.tab.c"
     break;
 
   case 19: /* verification: TOK_BIG_RIGHT  */
-#line 53 "compiler.y"
+#line 53 "lex.y"
                              {}
-#line 1512 "compiler.tab.c"
+#line 1512 "lex.tab.c"
     break;
 
   case 20: /* expr: expr '+' term  */
-#line 55 "compiler.y"
+#line 55 "lex.y"
                      {}
-#line 1518 "compiler.tab.c"
+#line 1518 "lex.tab.c"
     break;
 
   case 21: /* expr: expr '-' term  */
-#line 56 "compiler.y"
+#line 56 "lex.y"
                      {}
-#line 1524 "compiler.tab.c"
+#line 1524 "lex.tab.c"
     break;
 
   case 22: /* expr: term  */
-#line 57 "compiler.y"
+#line 57 "lex.y"
             {}
-#line 1530 "compiler.tab.c"
+#line 1530 "lex.tab.c"
     break;
 
   case 23: /* term: term '*' factor  */
-#line 59 "compiler.y"
+#line 59 "lex.y"
                        {}
-#line 1536 "compiler.tab.c"
+#line 1536 "lex.tab.c"
     break;
 
   case 24: /* term: term '/' factor  */
-#line 60 "compiler.y"
+#line 60 "lex.y"
                        {}
-#line 1542 "compiler.tab.c"
+#line 1542 "lex.tab.c"
     break;
 
   case 25: /* term: factor  */
-#line 61 "compiler.y"
+#line 61 "lex.y"
               {}
-#line 1548 "compiler.tab.c"
+#line 1548 "lex.tab.c"
     break;
 
   case 26: /* term: '(' expr ')'  */
-#line 62 "compiler.y"
+#line 62 "lex.y"
                     {}
-#line 1554 "compiler.tab.c"
+#line 1554 "lex.tab.c"
     break;
 
   case 27: /* factor: TOK_IDENT  */
-#line 64 "compiler.y"
+#line 64 "lex.y"
                    {}
-#line 1560 "compiler.tab.c"
+#line 1560 "lex.tab.c"
     break;
 
   case 28: /* factor: TOK_INT  */
-#line 65 "compiler.y"
+#line 65 "lex.y"
                  {}
-#line 1566 "compiler.tab.c"
+#line 1566 "lex.tab.c"
     break;
 
   case 29: /* factor: TOK_FLOAT  */
-#line 66 "compiler.y"
+#line 66 "lex.y"
                    {}
-#line 1572 "compiler.tab.c"
+#line 1572 "lex.tab.c"
     break;
 
   case 30: /* factor: bool  */
-#line 67 "compiler.y"
+#line 67 "lex.y"
               {}
-#line 1578 "compiler.tab.c"
+#line 1578 "lex.tab.c"
     break;
 
   case 31: /* factor: unary  */
-#line 68 "compiler.y"
+#line 68 "lex.y"
                {}
-#line 1584 "compiler.tab.c"
+#line 1584 "lex.tab.c"
     break;
 
   case 32: /* bool: TOK_TRUE  */
-#line 70 "compiler.y"
+#line 70 "lex.y"
                 {}
-#line 1590 "compiler.tab.c"
+#line 1590 "lex.tab.c"
     break;
 
   case 33: /* bool: TOK_FALSE  */
-#line 71 "compiler.y"
+#line 71 "lex.y"
                  {}
-#line 1596 "compiler.tab.c"
+#line 1596 "lex.tab.c"
     break;
 
   case 34: /* unary: '-' factor  */
-#line 73 "compiler.y"
+#line 73 "lex.y"
                   {}
-#line 1602 "compiler.tab.c"
+#line 1602 "lex.tab.c"
     break;
 
 
-#line 1606 "compiler.tab.c"
+#line 1606 "lex.tab.c"
 
       default: break;
     }
@@ -1826,4 +1826,4 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 75 "compiler.y"
+#line 75 "lex.y"
