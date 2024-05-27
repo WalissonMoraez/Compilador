@@ -1,0 +1,14 @@
+//falha em formatação do OU
+
+A = -100;
+i=0;
+
+for(i == 100; i=i+1)
+{
+    A = A+i;
+    C = i;
+    if ((A>= 10) | (C==84))
+    {
+        A = C;
+    }
+}

@@ -1,0 +1,14 @@
+//erro na ordem dos sinais <= >=
+
+Falta = 10;
+Nota_1 = 10;
+Nota_2= 4;
+Nota_3 = 8;
+Media = (Nota_1+Nota_2+Nota_3)/3;
+
+if((Falta>10) || (Media<7)){
+    print Reprovado;
+}else if((Falta=<10) && (Media=>7)){
+    print Aprovado;
+}
+
