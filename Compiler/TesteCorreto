@@ -2,20 +2,20 @@
 A = 10 + 10 - 3;
 B = (20.5 + (10.7 *2 )) / 15;
 C = A + B;
-tnirp C;
-F = ESLAF;
+print C;
+F = FALSE;
 
-rof( i ; i == EURT ; i=i+1)
+for(i == TRUE ; i=i+1)
 {
-    fi(A && 10){
-        fi (1>10)
+    if(A && 10){
+        if(1>10)
         {
-            rof (i; i < 10; i=10+1)
+            for (i; i < 10; i=10+1)
             {
-                tnirp B;
+                print B;
             }
         }
-    }esle{
+    }else{
         F=1;
     }
 }

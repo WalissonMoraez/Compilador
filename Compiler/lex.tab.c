@@ -134,14 +134,17 @@ enum yysymbol_kind_t
   YYSYMBOL_globals = 31,                   /* globals  */
   YYSYMBOL_global = 32,                    /* global  */
   YYSYMBOL_decision = 33,                  /* decision  */
-  YYSYMBOL_repetition = 34,                /* repetition  */
-  YYSYMBOL_comparison = 35,                /* comparison  */
-  YYSYMBOL_verification = 36,              /* verification  */
-  YYSYMBOL_expr = 37,                      /* expr  */
-  YYSYMBOL_term = 38,                      /* term  */
-  YYSYMBOL_factor = 39,                    /* factor  */
-  YYSYMBOL_bool = 40,                      /* bool  */
-  YYSYMBOL_unary = 41                      /* unary  */
+  YYSYMBOL_else = 34,                      /* else  */
+  YYSYMBOL_repetition = 35,                /* repetition  */
+  YYSYMBOL_comparison_1 = 36,              /* comparison_1  */
+  YYSYMBOL_comparison_2 = 37,              /* comparison_2  */
+  YYSYMBOL_comparison_3 = 38,              /* comparison_3  */
+  YYSYMBOL_verification = 39,              /* verification  */
+  YYSYMBOL_expr = 40,                      /* expr  */
+  YYSYMBOL_term = 41,                      /* term  */
+  YYSYMBOL_factor = 42,                    /* factor  */
+  YYSYMBOL_bool = 43,                      /* bool  */
+  YYSYMBOL_unary = 44                      /* unary  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -469,16 +472,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  14
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   86
+#define YYLAST   112
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  29
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  13
+#define YYNNTS  16
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  34
+#define YYNRULES  41
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  71
+#define YYNSTATES  81
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   273
@@ -530,9 +533,10 @@ static const yytype_int8 yytranslate[] =
 static const yytype_int8 yyrline[] =
 {
        0,    30,    30,    32,    33,    35,    36,    37,    38,    40,
-      41,    43,    45,    47,    48,    49,    50,    51,    52,    53,
-      55,    56,    57,    59,    60,    61,    62,    64,    65,    66,
-      67,    68,    70,    71,    73
+      41,    43,    44,    46,    48,    49,    51,    52,    54,    55,
+      57,    58,    59,    60,    61,    62,    63,    65,    66,    67,
+      69,    70,    71,    72,    74,    75,    76,    77,    78,    80,
+      81,    83
 };
 #endif
 
@@ -554,8 +558,8 @@ static const char *const yytname[] =
   "TOK_Minor_LEFTEqual", "TOK_Big_LEFTEqual", "TOK_BIG_RIGHT",
   "TOK_BIG_LEFT", "'='", "';'", "'('", "')'", "'{'", "'}'", "'+'", "'-'",
   "'*'", "'/'", "$accept", "program", "globals", "global", "decision",
-  "repetition", "comparison", "verification", "expr", "term", "factor",
-  "bool", "unary", YY_NULLPTR
+  "else", "repetition", "comparison_1", "comparison_2", "comparison_3",
+  "verification", "expr", "term", "factor", "bool", "unary", YY_NULLPTR
 };
 
 static const char *
@@ -565,7 +569,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-29)
+#define YYPACT_NINF (-21)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -579,14 +583,15 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      38,   -11,    42,    50,    51,    59,    38,   -29,   -29,   -29,
-      -2,    53,    71,    -2,   -29,   -29,   -29,   -29,   -29,   -29,
-     -29,    -2,     4,    18,     1,   -29,   -29,   -29,   -29,    55,
-      54,    52,    29,   -29,   -29,    -2,    -2,     4,     4,    -2,
-      56,   -29,   -29,   -29,   -29,   -29,   -29,   -29,    -2,   -29,
-       1,     1,   -29,   -29,    60,    38,    24,    78,    11,    63,
-      72,    -2,    61,    36,    38,    62,    13,    38,   -29,    22,
-     -29
+      94,   -17,     1,    16,    18,    22,    94,   -21,   -21,   -21,
+       0,    27,     8,     8,   -21,   -21,   -21,   -21,   -21,   -21,
+     -21,     0,    25,    80,    68,   -21,   -21,   -21,   -21,     8,
+      50,   -21,    41,    76,    -3,    43,   -21,   -21,     0,     0,
+      25,    25,    39,    61,     8,    54,     8,   -21,   -21,   -21,
+     -21,   -21,   -21,   -21,     0,    57,   -21,    68,    68,   -21,
+     -21,   -21,   -21,    63,   -21,    34,    94,     0,    14,    59,
+      88,    86,    17,   -21,    94,    94,   -21,    32,    40,   -21,
+     -21
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -595,27 +600,28 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     0,     0,     0,     0,     0,     2,     4,     8,     7,
-       0,     0,     0,     0,     1,     3,    27,    29,    28,    32,
-      33,     0,     0,     0,    22,    25,    30,    31,     6,     0,
-       0,     0,     0,    34,     5,     0,     0,     0,     0,     0,
-       0,    15,    14,    13,    17,    16,    19,    18,     0,    26,
-      20,    21,    23,    24,     0,     0,    12,     0,     0,     0,
-       9,     0,     0,     0,     0,     0,     0,     0,    10,     0,
+       0,     0,     0,     0,     1,     3,    34,    36,    35,    39,
+      40,     0,     0,     0,    29,    32,    37,    38,     6,     0,
+       0,    15,    17,     0,     0,     0,    41,     5,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,    22,    21,    20,
+      24,    23,    26,    25,     0,     0,    33,    27,    28,    30,
+      31,    19,    14,     0,    16,    18,     0,     0,     0,     0,
+       9,     0,     0,    10,     0,     0,    12,     0,     0,    13,
       11
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -29,   -29,   -28,    -6,   -29,   -29,    47,   -29,    -8,    21,
-      -4,   -29,   -29
+     -21,   -21,   -20,    -6,    38,   -21,   -21,    -4,    67,    66,
+     -21,    -9,    69,    26,   -21,   -21
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     5,     6,     7,     8,     9,    30,    48,    31,    24,
-      25,    26,    27
+       0,     5,     6,     7,     8,    73,     9,    30,    31,    32,
+      54,    33,    24,    25,    26,    27
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -623,41 +629,48 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      15,    16,    23,    17,    18,    19,    20,    16,    10,    17,
-      18,    19,    20,    32,     1,     2,     1,     2,    33,    21,
-       3,     4,     3,     4,    22,     1,     2,    58,    37,    38,
-      22,     3,     4,    52,    53,    60,    66,    68,    34,    69,
-      56,     1,     2,    35,    36,    11,    70,     3,     4,    35,
-      36,    49,    15,    63,    35,    36,    50,    51,    65,    14,
-      15,    35,    36,    15,    41,    42,    43,    44,    45,    46,
-      47,    12,    13,    28,    29,    39,    40,    35,    36,    55,
-      57,    59,    61,    62,    64,    67,    54
+      15,    23,    10,    16,    11,    17,    18,    19,    20,    34,
+      44,    16,    35,    17,    18,    19,    20,     1,     2,    55,
+      43,    21,    14,     3,     4,    42,    22,     4,    16,    29,
+      17,    18,    19,    20,    22,     1,     2,    12,    70,    13,
+      75,     3,     4,     1,     2,    65,    68,    28,    36,     3,
+       4,    22,    44,    46,    77,    78,    79,    63,    69,    38,
+      39,    61,    15,    44,    80,    56,    59,    60,    38,    39,
+      45,    15,    15,    47,    48,    49,    50,    51,    52,    53,
+      66,    71,    67,    56,    38,    39,    38,    39,    47,    48,
+      49,    50,    51,    52,    53,    40,    41,     1,     2,    72,
+      37,    38,    39,     3,     4,    38,    39,    57,    58,    74,
+      76,    62,    64
 };
 
 static const yytype_int8 yycheck[] =
 {
-       6,     3,    10,     5,     6,     7,     8,     3,    19,     5,
-       6,     7,     8,    21,     3,     4,     3,     4,    22,    21,
-       9,    10,     9,    10,    26,     3,     4,    55,    27,    28,
-      26,     9,    10,    37,    38,    24,    64,    24,    20,    67,
-      48,     3,     4,    25,    26,     3,    24,     9,    10,    25,
-      26,    22,    58,    61,    25,    26,    35,    36,    22,     0,
-      66,    25,    26,    69,    12,    13,    14,    15,    16,    17,
-      18,    21,    21,    20,     3,    20,    22,    25,    26,    23,
-      20,     3,    19,    11,    23,    23,    39
+       6,    10,    19,     3,     3,     5,     6,     7,     8,    13,
+      13,     3,    21,     5,     6,     7,     8,     3,     4,    22,
+      29,    21,     0,     9,    10,    29,    26,    10,     3,    21,
+       5,     6,     7,     8,    26,     3,     4,    21,    24,    21,
+      23,     9,    10,     3,     4,    54,    66,    20,    22,     9,
+      10,    26,    13,    12,    74,    75,    24,     3,    67,    25,
+      26,    22,    68,    13,    24,    22,    40,    41,    25,    26,
+      20,    77,    78,    12,    13,    14,    15,    16,    17,    18,
+      23,    22,    19,    22,    25,    26,    25,    26,    12,    13,
+      14,    15,    16,    17,    18,    27,    28,     3,     4,    11,
+      20,    25,    26,     9,    10,    25,    26,    38,    39,    23,
+      72,    44,    46
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     4,     9,    10,    30,    31,    32,    33,    34,
+       0,     3,     4,     9,    10,    30,    31,    32,    33,    35,
       19,     3,    21,    21,     0,    32,     3,     5,     6,     7,
-       8,    21,    26,    37,    38,    39,    40,    41,    20,     3,
-      35,    37,    37,    39,    20,    25,    26,    27,    28,    20,
-      22,    12,    13,    14,    15,    16,    17,    18,    36,    22,
-      38,    38,    39,    39,    35,    23,    37,    20,    31,     3,
-      24,    19,    11,    37,    23,    22,    31,    23,    24,    31,
+       8,    21,    26,    40,    41,    42,    43,    44,    20,    21,
+      36,    37,    38,    40,    36,    40,    42,    20,    25,    26,
+      27,    28,    36,    40,    13,    20,    12,    12,    13,    14,
+      15,    16,    17,    18,    39,    22,    22,    41,    41,    42,
+      42,    22,    37,     3,    38,    40,    23,    19,    31,    40,
+      24,    22,    11,    34,    23,    23,    33,    31,    31,    24,
       24
 };
 
@@ -665,18 +678,20 @@ static const yytype_int8 yystos[] =
 static const yytype_int8 yyr1[] =
 {
        0,    29,    30,    31,    31,    32,    32,    32,    32,    33,
-      33,    34,    35,    36,    36,    36,    36,    36,    36,    36,
-      37,    37,    37,    38,    38,    38,    38,    39,    39,    39,
-      39,    39,    40,    40,    41
+      33,    34,    34,    35,    36,    36,    37,    37,    38,    38,
+      39,    39,    39,    39,    39,    39,    39,    40,    40,    40,
+      41,    41,    41,    41,    42,    42,    42,    42,    42,    43,
+      43,    44
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     2,     1,     4,     3,     1,     1,     7,
-      11,    13,     3,     1,     1,     1,     1,     1,     1,     1,
-       3,     3,     1,     3,     3,     1,     3,     1,     1,     1,
-       1,     1,     1,     1,     2
+       8,     4,     2,    11,     3,     1,     3,     1,     3,     3,
+       1,     1,     1,     1,     1,     1,     1,     3,     3,     1,
+       3,     3,     1,     3,     1,     1,     1,     1,     1,     1,
+       1,     2
 };
 
 
@@ -1412,197 +1427,239 @@ yyreduce:
   case 3: /* globals: globals global  */
 #line 32 "lex.y"
                          {}
-#line 1416 "lex.tab.c"
+#line 1431 "lex.tab.c"
     break;
 
   case 4: /* globals: global  */
 #line 33 "lex.y"
                  {}
-#line 1422 "lex.tab.c"
+#line 1437 "lex.tab.c"
     break;
 
   case 5: /* global: TOK_IDENT '=' expr ';'  */
 #line 35 "lex.y"
                                 {}
-#line 1428 "lex.tab.c"
+#line 1443 "lex.tab.c"
     break;
 
   case 6: /* global: TOK_PRINT TOK_IDENT ';'  */
 #line 36 "lex.y"
                                  {}
-#line 1434 "lex.tab.c"
+#line 1449 "lex.tab.c"
     break;
 
   case 7: /* global: repetition  */
 #line 37 "lex.y"
                     {}
-#line 1440 "lex.tab.c"
+#line 1455 "lex.tab.c"
     break;
 
   case 8: /* global: decision  */
 #line 38 "lex.y"
                   {}
-#line 1446 "lex.tab.c"
+#line 1461 "lex.tab.c"
     break;
 
-  case 9: /* decision: TOK_IF '(' comparison ')' '{' globals '}'  */
+  case 9: /* decision: TOK_IF '(' comparison_1 ')' '{' globals '}'  */
 #line 40 "lex.y"
-                                                   {}
-#line 1452 "lex.tab.c"
+                                                      {}
+#line 1467 "lex.tab.c"
     break;
 
-  case 10: /* decision: TOK_IF '(' comparison ')' '{' globals '}' TOK_ELSE '{' globals '}'  */
+  case 10: /* decision: TOK_IF '(' comparison_1 ')' '{' globals '}' else  */
 #line 41 "lex.y"
-                                                                             {}
-#line 1458 "lex.tab.c"
+                                                           {}
+#line 1473 "lex.tab.c"
     break;
 
-  case 11: /* repetition: TOK_FOR '(' TOK_IDENT ';' comparison ';' TOK_IDENT '=' expr ')' '{' globals '}'  */
+  case 11: /* else: TOK_ELSE '{' globals '}'  */
 #line 43 "lex.y"
-                                                                                          {}
-#line 1464 "lex.tab.c"
+                                {}
+#line 1479 "lex.tab.c"
     break;
 
-  case 12: /* comparison: expr verification expr  */
-#line 45 "lex.y"
-                                     {}
-#line 1470 "lex.tab.c"
+  case 12: /* else: TOK_ELSE decision  */
+#line 44 "lex.y"
+                        {}
+#line 1485 "lex.tab.c"
     break;
 
-  case 13: /* verification: TOK_EQUALS  */
-#line 47 "lex.y"
-                          {}
-#line 1476 "lex.tab.c"
+  case 13: /* repetition: TOK_FOR '(' comparison_1 ';' TOK_IDENT '=' expr ')' '{' globals '}'  */
+#line 46 "lex.y"
+                                                                              {}
+#line 1491 "lex.tab.c"
     break;
 
-  case 14: /* verification: TOK_OR  */
+  case 14: /* comparison_1: comparison_1 TOK_OR comparison_2  */
 #line 48 "lex.y"
-                      {}
-#line 1482 "lex.tab.c"
+                                                {}
+#line 1497 "lex.tab.c"
     break;
 
-  case 15: /* verification: TOK_AND  */
+  case 15: /* comparison_1: comparison_2  */
 #line 49 "lex.y"
-                       {}
-#line 1488 "lex.tab.c"
+                                  {}
+#line 1503 "lex.tab.c"
     break;
 
-  case 16: /* verification: TOK_Big_LEFTEqual  */
-#line 50 "lex.y"
-                                 {}
-#line 1494 "lex.tab.c"
-    break;
-
-  case 17: /* verification: TOK_Minor_LEFTEqual  */
+  case 16: /* comparison_2: comparison_3 TOK_AND comparison_3  */
 #line 51 "lex.y"
-                                   {}
-#line 1500 "lex.tab.c"
+                                                 {}
+#line 1509 "lex.tab.c"
     break;
 
-  case 18: /* verification: TOK_BIG_LEFT  */
+  case 17: /* comparison_2: comparison_3  */
 #line 52 "lex.y"
-                            {}
-#line 1506 "lex.tab.c"
+                                  {}
+#line 1515 "lex.tab.c"
     break;
 
-  case 19: /* verification: TOK_BIG_RIGHT  */
-#line 53 "lex.y"
-                             {}
-#line 1512 "lex.tab.c"
+  case 18: /* comparison_3: expr verification expr  */
+#line 54 "lex.y"
+                                       {}
+#line 1521 "lex.tab.c"
     break;
 
-  case 20: /* expr: expr '+' term  */
+  case 19: /* comparison_3: '(' comparison_1 ')'  */
 #line 55 "lex.y"
-                     {}
-#line 1518 "lex.tab.c"
+                                     {}
+#line 1527 "lex.tab.c"
     break;
 
-  case 21: /* expr: expr '-' term  */
-#line 56 "lex.y"
-                     {}
-#line 1524 "lex.tab.c"
-    break;
-
-  case 22: /* expr: term  */
+  case 20: /* verification: TOK_EQUALS  */
 #line 57 "lex.y"
-            {}
-#line 1530 "lex.tab.c"
+                          {}
+#line 1533 "lex.tab.c"
     break;
 
-  case 23: /* term: term '*' factor  */
+  case 21: /* verification: TOK_OR  */
+#line 58 "lex.y"
+                      {}
+#line 1539 "lex.tab.c"
+    break;
+
+  case 22: /* verification: TOK_AND  */
 #line 59 "lex.y"
                        {}
-#line 1536 "lex.tab.c"
+#line 1545 "lex.tab.c"
     break;
 
-  case 24: /* term: term '/' factor  */
+  case 23: /* verification: TOK_Big_LEFTEqual  */
 #line 60 "lex.y"
-                       {}
-#line 1542 "lex.tab.c"
+                                 {}
+#line 1551 "lex.tab.c"
     break;
 
-  case 25: /* term: factor  */
+  case 24: /* verification: TOK_Minor_LEFTEqual  */
 #line 61 "lex.y"
-              {}
-#line 1548 "lex.tab.c"
+                                   {}
+#line 1557 "lex.tab.c"
     break;
 
-  case 26: /* term: '(' expr ')'  */
+  case 25: /* verification: TOK_BIG_LEFT  */
 #line 62 "lex.y"
-                    {}
-#line 1554 "lex.tab.c"
+                            {}
+#line 1563 "lex.tab.c"
     break;
 
-  case 27: /* factor: TOK_IDENT  */
-#line 64 "lex.y"
-                   {}
-#line 1560 "lex.tab.c"
+  case 26: /* verification: TOK_BIG_RIGHT  */
+#line 63 "lex.y"
+                             {}
+#line 1569 "lex.tab.c"
     break;
 
-  case 28: /* factor: TOK_INT  */
+  case 27: /* expr: expr '+' term  */
 #line 65 "lex.y"
-                 {}
-#line 1566 "lex.tab.c"
+                     {}
+#line 1575 "lex.tab.c"
     break;
 
-  case 29: /* factor: TOK_FLOAT  */
+  case 28: /* expr: expr '-' term  */
 #line 66 "lex.y"
-                   {}
-#line 1572 "lex.tab.c"
+                     {}
+#line 1581 "lex.tab.c"
     break;
 
-  case 30: /* factor: bool  */
+  case 29: /* expr: term  */
 #line 67 "lex.y"
-              {}
-#line 1578 "lex.tab.c"
+            {}
+#line 1587 "lex.tab.c"
     break;
 
-  case 31: /* factor: unary  */
-#line 68 "lex.y"
-               {}
-#line 1584 "lex.tab.c"
+  case 30: /* term: term '*' factor  */
+#line 69 "lex.y"
+                       {}
+#line 1593 "lex.tab.c"
     break;
 
-  case 32: /* bool: TOK_TRUE  */
+  case 31: /* term: term '/' factor  */
 #line 70 "lex.y"
-                {}
-#line 1590 "lex.tab.c"
+                       {}
+#line 1599 "lex.tab.c"
     break;
 
-  case 33: /* bool: TOK_FALSE  */
+  case 32: /* term: factor  */
 #line 71 "lex.y"
+              {}
+#line 1605 "lex.tab.c"
+    break;
+
+  case 33: /* term: '(' expr ')'  */
+#line 72 "lex.y"
+                    {}
+#line 1611 "lex.tab.c"
+    break;
+
+  case 34: /* factor: TOK_IDENT  */
+#line 74 "lex.y"
+                   {}
+#line 1617 "lex.tab.c"
+    break;
+
+  case 35: /* factor: TOK_INT  */
+#line 75 "lex.y"
                  {}
-#line 1596 "lex.tab.c"
+#line 1623 "lex.tab.c"
     break;
 
-  case 34: /* unary: '-' factor  */
-#line 73 "lex.y"
+  case 36: /* factor: TOK_FLOAT  */
+#line 76 "lex.y"
+                   {}
+#line 1629 "lex.tab.c"
+    break;
+
+  case 37: /* factor: bool  */
+#line 77 "lex.y"
+              {}
+#line 1635 "lex.tab.c"
+    break;
+
+  case 38: /* factor: unary  */
+#line 78 "lex.y"
+               {}
+#line 1641 "lex.tab.c"
+    break;
+
+  case 39: /* bool: TOK_TRUE  */
+#line 80 "lex.y"
+                {}
+#line 1647 "lex.tab.c"
+    break;
+
+  case 40: /* bool: TOK_FALSE  */
+#line 81 "lex.y"
+                 {}
+#line 1653 "lex.tab.c"
+    break;
+
+  case 41: /* unary: '-' factor  */
+#line 83 "lex.y"
                   {}
-#line 1602 "lex.tab.c"
+#line 1659 "lex.tab.c"
     break;
 
 
-#line 1606 "lex.tab.c"
+#line 1663 "lex.tab.c"
 
       default: break;
     }
@@ -1826,4 +1883,4 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 75 "lex.y"
+#line 85 "lex.y"

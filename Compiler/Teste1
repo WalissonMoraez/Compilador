@@ -1,0 +1,21 @@
+PORTA_ABERTA=FALSE;
+ABRIR=FALSE;
+HORA= LocalTimeNOW;
+
+if(HORA<=21){
+    for(HORA==22; HORA=LocalTimeNOW){
+        if(PORTA_ABERTA==FALSE){
+            if(ABRIR==TRUE){
+                PORTA_ABERTA = TRUE;
+            }else{
+                PORTA_ABERTA = FALSE;
+            }
+        }else if(PORTA_ABERTA == TRUE){
+            if(ABRIR==FALSE){
+                PORTA_ABERTA = FALSE;
+            }else{
+                PORTA_ABERTA = TRUE;
+            }
+        }
+    }
+}

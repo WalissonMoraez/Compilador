@@ -37,12 +37,22 @@ global : TOK_IDENT '=' expr ';' {}
        | repetition {}
        | decision {}
 
-decision: TOK_IF '(' comparison')' '{' globals '}' {}
-        | TOK_IF '(' comparison ')' '{' globals '}' TOK_ELSE '{' globals '}' {}
+decision  : TOK_IF '('comparison_1')' '{' globals '}' {}
+          | TOK_IF '('comparison_1')' '{' globals '}' else {}
+          
+else : TOK_ELSE '{' globals '}' {}
+     | TOK_ELSE decision{}
 
-repetition:  TOK_FOR'(' TOK_IDENT ';' comparison ';' TOK_IDENT '=' expr')''{' globals '}' {}
+repetition:  TOK_FOR'(' comparison_1 ';' TOK_IDENT '=' expr')''{' globals '}' {}
 
-comparison  : expr verification expr {}
+comparison_1 : comparison_1 TOK_OR comparison_2 {}
+		   | comparison_2 {}						
+		  
+comparison_2 : comparison_3 TOK_AND comparison_3 {}
+		   | comparison_3 {}				
+
+comparison_3  : expr verification expr {}
+              | '(' comparison_1 ')' {}
 
 verification : TOK_EQUALS {}
              | TOK_OR {}
