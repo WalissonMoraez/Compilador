@@ -4,9 +4,9 @@ Nota_2= 4;
 Nota_3 = 8;
 Media = (Nota_1+Nota_2+Nota_3)/3;
 
-if((Falta>10) || (Media<7)){
-    print Reprovado;
-}else if((Falta<=10) && (Media>=7)){
-    print Aprovado;
+casofor((Falta>10) || (Media<7)){
+    imprimir Reprovado;
+}naofoi casofor((Falta<=10) && (Media>=7)){
+    imprimir Aprovado;
 }
 

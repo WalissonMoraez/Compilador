@@ -14,13 +14,13 @@ int yyerror(const char *s);
 
 "//".*\n { /* ignora */ }
 
-"TRUE"  { return TOK_TRUE; }
-"FALSE"  { return TOK_FALSE; }
+"VDD"  { return TOK_TRUE; }
+"FLS"  { return TOK_FALSE; }
 
-"print" { return TOK_PRINT; }
-"if" { return TOK_IF; }
-"else" { return TOK_ELSE; }
-"for" { return TOK_FOR; }
+"imprimir" { return TOK_PRINT; }
+"casofor" { return TOK_IF; }
+"naofoi" { return TOK_ELSE; }
+"loop" { return TOK_FOR; }
 
 "||"  { return TOK_OR; }
 "&&"  { return TOK_AND; }

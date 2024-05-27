@@ -1,3 +1,3 @@
 //erro de simbolo não insirido na linguagem
 NOTA = 10%*(15+95);
-print NOTA;
+imprimir NOTA;

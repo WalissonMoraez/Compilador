@@ -1,20 +1,20 @@
-PORTA_ABERTA=FALSE;
-ABRIR=FALSE;
+PORTA_ABERTA=FLS;
+ABRIR=FLS;
 HORA= LocalTimeNOW;
 
-if(HORA<=21){
-    for(HORA==22; HORA=LocalTimeNOW){
-        if(PORTA_ABERTA==FALSE){
-            if(ABRIR==TRUE){
-                PORTA_ABERTA = TRUE;
-            }else{
-                PORTA_ABERTA = FALSE;
+casofor(HORA<=21){
+    loop(HORA==22; HORA=LocalTimeNOW){
+        casofor(PORTA_ABERTA==FLS){
+            casofor(ABRIR==VDD){
+                PORTA_ABERTA = VDD;
+            }naofoi{
+                PORTA_ABERTA = FLS;
             }
-        }else if(PORTA_ABERTA == TRUE){
-            if(ABRIR==FALSE){
-                PORTA_ABERTA = FALSE;
-            }else{
-                PORTA_ABERTA = TRUE;
+        }naofoi casofor(PORTA_ABERTA == VDD){
+            casofor(ABRIR==FLS){
+                PORTA_ABERTA = FLS;
+            }naofoi{
+                PORTA_ABERTA = VDD;
             }
         }
     }

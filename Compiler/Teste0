@@ -2,20 +2,20 @@
 A = 10 + 10 - 3;
 B = (20.5 + (10.7 *2 )) / 15;
 C = A + B;
-print C;
-F = FALSE;
+imprimir C;
+F = FLS;
 
-for(i == TRUE ; i=i+1)
+loop(i == VDD ; i=i+1)
 {
-    if(A && 10){
-        if(1>10)
+    casofor(A && 10){
+        casofor(1>10)
         {
-            for (i < 10; i=i-1)
+            loop(i < 10; i=i-1)
             {
-                print B;
+                imprimir B;
             }
         }
-    }else{
+    }naofoi{
         F=1;
     }
 }
