@@ -48,7 +48,7 @@ repetition:  TOK_FOR'(' comparison_1 ';' TOK_IDENT '=' expr')''{' globals '}' {}
 comparison_1 : comparison_1 TOK_OR comparison_2 {}
 		   | comparison_2 {}						
 		  
-comparison_2 : comparison_3 TOK_AND comparison_3 {}
+comparison_2 : comparison_2 TOK_AND comparison_3 {}
 		   | comparison_3 {}				
 
 comparison_3  : expr verification expr {}
