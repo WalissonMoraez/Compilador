@@ -1,5 +1,8 @@
 %{
 #include <stdio.h>
+#include <stdlib.h>
+
+class Node;
 #include "lex.tab.h"
 
 int yyerror(const char *s);
@@ -41,17 +44,21 @@ int yyerror(const char *s);
 ";"   { return ';'; }
 "="   { return '='; }
 
-[a-zA-Z_][a-zA-Z0-9_]* { 
-  return TOK_IDENT;
+[a-zA-Z_][a-zA-Z0-9_]* {
+    yylval.str = strndup(yytext, yyleng);
+    return TOK_IDENT;
 }
 
-[0-9]+\.[0-9]* { 
-  return TOK_FLOAT;
+[0-9]+\.[0-9]* {
+    yylval.flt = atof(yytext);
+    return TOK_FLOAT;
 }
 
-[0-9]+ { 
-  return TOK_INT;
+[0-9]+ {
+    yylval.itg = atoi(yytext);
+    return TOK_INT;
 }
+
 
 . {
      printf("Símbolo não reconhecido %c\n", yytext[0]); 
@@ -66,8 +73,10 @@ int yywrap() {
   return 1;
 }
 
+extern int errorcount;
 int yyerror(const char *s){
-  printf("Error de sintaxe na linha %d: %s\n", yylineno, s);
+  printf("Syntax error %d: %s\n", yylineno, s);
+  errorcount++;
   return 1;
 }
 

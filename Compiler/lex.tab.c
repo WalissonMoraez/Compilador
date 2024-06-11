@@ -69,10 +69,14 @@
 /* First part of user prologue.  */
 #line 2 "lex.y"
 
+#include "nodes.h"
+
 int yyerror(const char *s);
 int yylex(void);
 
-#line 76 "lex.tab.c"
+int errorcount=0;
+
+#line 80 "lex.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -532,11 +536,11 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    30,    30,    32,    33,    35,    36,    37,    38,    40,
-      41,    43,    44,    46,    48,    49,    51,    52,    54,    55,
-      57,    58,    59,    60,    61,    62,    63,    65,    66,    67,
-      69,    70,    71,    72,    74,    75,    76,    77,    78,    80,
-      81,    83
+       0,    46,    46,    62,    66,    72,    73,    77,    78,    80,
+      81,    83,    84,    86,    88,    89,    91,    92,    94,    95,
+      97,    98,    99,   100,   101,   102,   103,   105,   106,   107,
+     109,   110,   111,   112,   114,   115,   116,   117,   118,   120,
+     121,   123
 };
 #endif
 
@@ -586,10 +590,10 @@ static const yytype_int8 yypact[] =
       94,   -17,     1,    16,    18,    22,    94,   -21,   -21,   -21,
        0,    27,     8,     8,   -21,   -21,   -21,   -21,   -21,   -21,
      -21,     0,    25,    80,    68,   -21,   -21,   -21,   -21,     8,
-      50,   -21,    41,    76,    -3,    43,   -21,   -21,     0,     0,
+      50,    41,   -21,    76,    -3,    43,   -21,   -21,     0,     0,
       25,    25,    39,    61,     8,    54,     8,   -21,   -21,   -21,
      -21,   -21,   -21,   -21,     0,    57,   -21,    68,    68,   -21,
-     -21,   -21,   -21,    63,   -21,    34,    94,     0,    14,    59,
+     -21,   -21,    41,    63,   -21,    34,    94,     0,    14,    59,
       88,    86,    17,   -21,    94,    94,   -21,    32,    40,   -21,
      -21
 };
@@ -1424,242 +1428,274 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 3: /* globals: globals global  */
-#line 32 "lex.y"
-                         {}
-#line 1431 "lex.tab.c"
-    break;
+  case 2: /* program: globals  */
+#line 46 "lex.y"
+                  {
+     Node *program = new Program();
+    program-> append((yyvsp[0].node));
 
-  case 4: /* globals: global  */
-#line 33 "lex.y"
-                 {}
-#line 1437 "lex.tab.c"
-    break;
+    // aqui vai a analise semantica
 
-  case 5: /* global: TOK_IDENT '=' expr ';'  */
-#line 35 "lex.y"
-                                {}
-#line 1443 "lex.tab.c"
-    break;
+    CheckVarDecl cvd;
+    cvd.check(program);
 
-  case 6: /* global: TOK_PRINT TOK_IDENT ';'  */
-#line 36 "lex.y"
-                                 {}
+    if(errorcount>0){ //caso ter erros nao printa a arvore
+        cout << errorcount << " error(s) found." << endl;
+    }else{
+        printf_tree(program);
+    } 
+}
 #line 1449 "lex.tab.c"
     break;
 
+  case 3: /* globals: globals global  */
+#line 62 "lex.y"
+                             {
+               (yyvsp[-1].node)->append((yyvsp[0].node));
+               (yyval.node) = (yyvsp[-1].node);
+          }
+#line 1458 "lex.tab.c"
+    break;
+
+  case 4: /* globals: global  */
+#line 66 "lex.y"
+                 {
+               Node *n = new Node();
+               n->append((yyvsp[0].node));
+               (yyval.node) = n;
+          }
+#line 1468 "lex.tab.c"
+    break;
+
+  case 5: /* global: TOK_IDENT '=' expr ';'  */
+#line 72 "lex.y"
+                                { (yyval.node) = new Variable((yyvsp[-3].str), (yyvsp[-1].node)); }
+#line 1474 "lex.tab.c"
+    break;
+
+  case 6: /* global: TOK_PRINT TOK_IDENT ';'  */
+#line 73 "lex.y"
+                                 {
+          Ident *id = new Ident((yyvsp[-1].str));
+          (yyval.node) = new Print(id);
+       }
+#line 1483 "lex.tab.c"
+    break;
+
   case 7: /* global: repetition  */
-#line 37 "lex.y"
+#line 77 "lex.y"
                     {}
-#line 1455 "lex.tab.c"
+#line 1489 "lex.tab.c"
     break;
 
   case 8: /* global: decision  */
-#line 38 "lex.y"
+#line 78 "lex.y"
                   {}
-#line 1461 "lex.tab.c"
+#line 1495 "lex.tab.c"
     break;
 
   case 9: /* decision: TOK_IF '(' comparison_1 ')' '{' globals '}'  */
-#line 40 "lex.y"
+#line 80 "lex.y"
                                                       {}
-#line 1467 "lex.tab.c"
+#line 1501 "lex.tab.c"
     break;
 
   case 10: /* decision: TOK_IF '(' comparison_1 ')' '{' globals '}' else  */
-#line 41 "lex.y"
+#line 81 "lex.y"
                                                            {}
-#line 1473 "lex.tab.c"
+#line 1507 "lex.tab.c"
     break;
 
   case 11: /* else: TOK_ELSE '{' globals '}'  */
-#line 43 "lex.y"
+#line 83 "lex.y"
                                 {}
-#line 1479 "lex.tab.c"
+#line 1513 "lex.tab.c"
     break;
 
   case 12: /* else: TOK_ELSE decision  */
-#line 44 "lex.y"
+#line 84 "lex.y"
                         {}
-#line 1485 "lex.tab.c"
+#line 1519 "lex.tab.c"
     break;
 
   case 13: /* repetition: TOK_FOR '(' comparison_1 ';' TOK_IDENT '=' expr ')' '{' globals '}'  */
-#line 46 "lex.y"
+#line 86 "lex.y"
                                                                               {}
-#line 1491 "lex.tab.c"
+#line 1525 "lex.tab.c"
     break;
 
   case 14: /* comparison_1: comparison_1 TOK_OR comparison_2  */
-#line 48 "lex.y"
+#line 88 "lex.y"
                                                 {}
-#line 1497 "lex.tab.c"
+#line 1531 "lex.tab.c"
     break;
 
   case 15: /* comparison_1: comparison_2  */
-#line 49 "lex.y"
+#line 89 "lex.y"
                                   {}
-#line 1503 "lex.tab.c"
+#line 1537 "lex.tab.c"
     break;
 
-  case 16: /* comparison_2: comparison_3 TOK_AND comparison_3  */
-#line 51 "lex.y"
+  case 16: /* comparison_2: comparison_2 TOK_AND comparison_3  */
+#line 91 "lex.y"
                                                  {}
-#line 1509 "lex.tab.c"
+#line 1543 "lex.tab.c"
     break;
 
   case 17: /* comparison_2: comparison_3  */
-#line 52 "lex.y"
+#line 92 "lex.y"
                                   {}
-#line 1515 "lex.tab.c"
+#line 1549 "lex.tab.c"
     break;
 
   case 18: /* comparison_3: expr verification expr  */
-#line 54 "lex.y"
+#line 94 "lex.y"
                                        {}
-#line 1521 "lex.tab.c"
+#line 1555 "lex.tab.c"
     break;
 
   case 19: /* comparison_3: '(' comparison_1 ')'  */
-#line 55 "lex.y"
+#line 95 "lex.y"
                                      {}
-#line 1527 "lex.tab.c"
+#line 1561 "lex.tab.c"
     break;
 
   case 20: /* verification: TOK_EQUALS  */
-#line 57 "lex.y"
+#line 97 "lex.y"
                           {}
-#line 1533 "lex.tab.c"
+#line 1567 "lex.tab.c"
     break;
 
   case 21: /* verification: TOK_OR  */
-#line 58 "lex.y"
+#line 98 "lex.y"
                       {}
-#line 1539 "lex.tab.c"
+#line 1573 "lex.tab.c"
     break;
 
   case 22: /* verification: TOK_AND  */
-#line 59 "lex.y"
+#line 99 "lex.y"
                        {}
-#line 1545 "lex.tab.c"
+#line 1579 "lex.tab.c"
     break;
 
   case 23: /* verification: TOK_Big_LEFTEqual  */
-#line 60 "lex.y"
+#line 100 "lex.y"
                                  {}
-#line 1551 "lex.tab.c"
+#line 1585 "lex.tab.c"
     break;
 
   case 24: /* verification: TOK_Minor_LEFTEqual  */
-#line 61 "lex.y"
+#line 101 "lex.y"
                                    {}
-#line 1557 "lex.tab.c"
+#line 1591 "lex.tab.c"
     break;
 
   case 25: /* verification: TOK_BIG_LEFT  */
-#line 62 "lex.y"
+#line 102 "lex.y"
                             {}
-#line 1563 "lex.tab.c"
+#line 1597 "lex.tab.c"
     break;
 
   case 26: /* verification: TOK_BIG_RIGHT  */
-#line 63 "lex.y"
+#line 103 "lex.y"
                              {}
-#line 1569 "lex.tab.c"
+#line 1603 "lex.tab.c"
     break;
 
   case 27: /* expr: expr '+' term  */
-#line 65 "lex.y"
-                     {}
-#line 1575 "lex.tab.c"
+#line 105 "lex.y"
+                         { (yyval.node) = new BinaryOp((yyvsp[-2].node), (yyvsp[0].node), '+'); }
+#line 1609 "lex.tab.c"
     break;
 
   case 28: /* expr: expr '-' term  */
-#line 66 "lex.y"
-                     {}
-#line 1581 "lex.tab.c"
+#line 106 "lex.y"
+                         { (yyval.node) = new BinaryOp((yyvsp[-2].node), (yyvsp[0].node), '-'); }
+#line 1615 "lex.tab.c"
     break;
 
   case 29: /* expr: term  */
-#line 67 "lex.y"
-            {}
-#line 1587 "lex.tab.c"
+#line 107 "lex.y"
+            { (yyval.node) = (yyvsp[0].node); }
+#line 1621 "lex.tab.c"
     break;
 
   case 30: /* term: term '*' factor  */
-#line 69 "lex.y"
-                       {}
-#line 1593 "lex.tab.c"
+#line 109 "lex.y"
+                           { (yyval.node) = new BinaryOp((yyvsp[-2].node), (yyvsp[0].node), '*'); }
+#line 1627 "lex.tab.c"
     break;
 
   case 31: /* term: term '/' factor  */
-#line 70 "lex.y"
-                       {}
-#line 1599 "lex.tab.c"
+#line 110 "lex.y"
+                           { (yyval.node) = new BinaryOp((yyvsp[-2].node), (yyvsp[0].node), '/'); }
+#line 1633 "lex.tab.c"
     break;
 
   case 32: /* term: factor  */
-#line 71 "lex.y"
-              {}
-#line 1605 "lex.tab.c"
+#line 111 "lex.y"
+              { (yyval.node) = (yyvsp[0].node); }
+#line 1639 "lex.tab.c"
     break;
 
   case 33: /* term: '(' expr ')'  */
-#line 72 "lex.y"
-                    {}
-#line 1611 "lex.tab.c"
+#line 112 "lex.y"
+                    { (yyval.node) = (yyvsp[-1].node); }
+#line 1645 "lex.tab.c"
     break;
 
   case 34: /* factor: TOK_IDENT  */
-#line 74 "lex.y"
-                   {}
-#line 1617 "lex.tab.c"
+#line 114 "lex.y"
+                   {(yyval.node) = new Ident((yyvsp[0].str)); }
+#line 1651 "lex.tab.c"
     break;
 
   case 35: /* factor: TOK_INT  */
-#line 75 "lex.y"
-                 {}
-#line 1623 "lex.tab.c"
+#line 115 "lex.y"
+                 { (yyval.node) = new Integer((yyvsp[0].itg)); }
+#line 1657 "lex.tab.c"
     break;
 
   case 36: /* factor: TOK_FLOAT  */
-#line 76 "lex.y"
-                   {}
-#line 1629 "lex.tab.c"
+#line 116 "lex.y"
+                   { (yyval.node) = new Float((yyvsp[0].flt)); }
+#line 1663 "lex.tab.c"
     break;
 
   case 37: /* factor: bool  */
-#line 77 "lex.y"
+#line 117 "lex.y"
               {}
-#line 1635 "lex.tab.c"
+#line 1669 "lex.tab.c"
     break;
 
   case 38: /* factor: unary  */
-#line 78 "lex.y"
-               {}
-#line 1641 "lex.tab.c"
+#line 118 "lex.y"
+               { (yyval.node) = (yyvsp[0].node); }
+#line 1675 "lex.tab.c"
     break;
 
   case 39: /* bool: TOK_TRUE  */
-#line 80 "lex.y"
+#line 120 "lex.y"
                 {}
-#line 1647 "lex.tab.c"
+#line 1681 "lex.tab.c"
     break;
 
   case 40: /* bool: TOK_FALSE  */
-#line 81 "lex.y"
+#line 121 "lex.y"
                  {}
-#line 1653 "lex.tab.c"
+#line 1687 "lex.tab.c"
     break;
 
   case 41: /* unary: '-' factor  */
-#line 83 "lex.y"
-                  {}
-#line 1659 "lex.tab.c"
+#line 123 "lex.y"
+                  {
+     (yyval.node) = new Unary((yyvsp[0].node), '-');
+}
+#line 1695 "lex.tab.c"
     break;
 
 
-#line 1663 "lex.tab.c"
+#line 1699 "lex.tab.c"
 
       default: break;
     }
@@ -1883,4 +1919,4 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 85 "lex.y"
+#line 127 "lex.y"

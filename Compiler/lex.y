@@ -1,10 +1,21 @@
 
 %{
+#include "nodes.h"
+
 int yyerror(const char *s);
 int yylex(void);
+
+int errorcount=0;
 %}
 
 %define parse.error verbose
+
+%union {
+    char *str;
+    int itg;
+    double flt;
+    Node *node;
+}
 
 %token TOK_IDENT 
 %token TOK_PRINT
@@ -23,17 +34,46 @@ int yylex(void);
 %token TOK_BIG_RIGHT
 %token TOK_BIG_LEFT
 
+%type<str> TOK_IDENT
+%type<itg> TOK_INT
+%type<flt> TOK_FLOAT
+%type<node> globals global decision else repetition comparison_1 comparison_2 comparison_3 verification expr term factor bool unary
+
 %start program
 
 %%
 
-program : globals ;
+program : globals {
+     Node *program = new Program();
+    program-> append($globals);
 
-globals : globals global {}
-        | global {}
+    // aqui vai a analise semantica
 
-global : TOK_IDENT '=' expr ';' {}
-       | TOK_PRINT TOK_IDENT ';' {}
+    CheckVarDecl cvd;
+    cvd.check(program);
+
+    if(errorcount>0){ //caso ter erros nao printa a arvore
+        cout << errorcount << " error(s) found." << endl;
+    }else{
+        printf_tree(program);
+    } 
+} ;
+
+globals : globals[gg] global {
+               $gg->append($global);
+               $$ = $gg;
+          }
+        | global {
+               Node *n = new Node();
+               n->append($global);
+               $$ = n;
+          }
+
+global : TOK_IDENT '=' expr ';' { $$ = new Variable($TOK_IDENT, $expr); }
+       | TOK_PRINT TOK_IDENT ';' {
+          Ident *id = new Ident($TOK_IDENT);
+          $$ = new Print(id);
+       }
        | repetition {}
        | decision {}
 
@@ -62,24 +102,26 @@ verification : TOK_EQUALS {}
              | TOK_BIG_LEFT {}
              | TOK_BIG_RIGHT {}
          
-expr : expr '+' term {}
-     | expr '-' term {}
-     | term {}
+expr : expr[ee] '+' term { $$ = new BinaryOp($ee, $term, '+'); }
+     | expr[ee] '-' term { $$ = new BinaryOp($ee, $term, '-'); }
+     | term { $$ = $term; }
 
-term : term '*' factor {}
-     | term '/' factor {}
-     | factor {}
-     | '(' expr ')' {}
+term : term[tt] '*' factor { $$ = new BinaryOp($tt, $factor, '*'); }
+     | term[tt] '/' factor { $$ = new BinaryOp($tt, $factor, '/'); }
+     | factor { $$ = $factor; }
+     | '(' expr ')' { $$ = $expr; }
 
-factor : TOK_IDENT {}
-       | TOK_INT {}
-       | TOK_FLOAT {}
+factor : TOK_IDENT {$$ = new Ident($TOK_IDENT); }
+       | TOK_INT { $$ = new Integer($TOK_INT); }
+       | TOK_FLOAT { $$ = new Float($TOK_FLOAT); }
        | bool {}
-       | unary {}
+       | unary { $$ = $unary; }
 
 bool : TOK_TRUE {}
      | TOK_FALSE {}
 
-unary : '-' factor{}
+unary : '-' factor{
+     $$ = new Unary($factor, '-');
+}
 
 %%
