@@ -5,11 +5,13 @@
 int yyerror(const char *s);
 int yylex(void);
 
-int errorcount=0;
+int error_count=0;
+extern bool force_print_tree;
 %}
 
 %define parse.error verbose
 
+//o %union vira o yylval para conseguir conversar com o .y e .l 
 %union {
     char *str;
     int itg;
@@ -44,7 +46,7 @@ int errorcount=0;
 %%
 
 program : globals {
-     Node *program = new Program();
+    Node *program = new Program();
     program-> append($globals);
 
     // aqui vai a analise semantica
@@ -52,11 +54,10 @@ program : globals {
     CheckVarDecl cvd;
     cvd.check(program);
 
-    if(errorcount>0){ //caso ter erros nao printa a arvore
-        cout << errorcount << " error(s) found." << endl;
-    }else{
+    if(error_count>0) //caso ter erros nao printa a arvore
+        cout << error_count << " error(s) found." << endl;
+    if (error_count == 0 || force_print_tree) 
         printf_tree(program);
-    } 
 } ;
 
 globals : globals[gg] global {
@@ -76,6 +77,7 @@ global : TOK_IDENT '=' expr ';' { $$ = new Variable($TOK_IDENT, $expr); }
        }
        | repetition {}
        | decision {}
+       | error ';' { $$ = new Node(); }
 
 decision  : TOK_IF '('comparison_1')' '{' globals '}' {}
           | TOK_IF '('comparison_1')' '{' globals '}' else {}

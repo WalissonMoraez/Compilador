@@ -4,15 +4,24 @@
 #include <map>
 #include <set>
 
-extern int errorcount;
+extern int error_count;
+extern int yylineno;
+extern char *build_file_name;
 
 using namespace std;
 
 class Node {
 protected:
     vector<Node*> children;
+    int lineno;
 
 public:
+    Node(){
+        lineno = yylineno; //anota a linha
+    }
+    int getLineNo(){
+        return lineno;
+    }
     virtual string toStr() {
         return "stmts";
     }
@@ -146,7 +155,7 @@ public:
     }
 
     virtual string toStr() {
-        return "print";
+        return "imprimir";
     }
 };
 
@@ -185,11 +194,14 @@ class CheckVarDecl {
             if(id){ //verifica se o noh é um ident
                 //aqui vai verificar se esta dentro do container
                 if(symbols.count(id->getName()) <= 0){
-                    cout << "Semantic error: " 
-                         << id->getName() 
-                         << " undefined."
-                         << endl;
-                         errorcount++;
+                   cout << build_file_name
+                        << ":"
+                        << id->getLineNo()
+                        << ":0: semantic error: " 
+                        << id->getName()
+                        << " undefined."
+                        << endl;
+                    error_count++;
                 }
 
             }

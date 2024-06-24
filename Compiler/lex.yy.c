@@ -511,13 +511,15 @@ char *yytext;
 #include <stdio.h>
 #include <stdlib.h>
 
+char *build_file_name;
+bool force_print_tree = false;
 class Node;
 #include "lex.tab.h"
 
 int yyerror(const char *s);
 
-#line 520 "lex.yy.c"
-#line 521 "lex.yy.c"
+#line 522 "lex.yy.c"
+#line 523 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -734,10 +736,10 @@ YY_DECL
 		}
 
 	{
-#line 14 "lex.l"
+#line 16 "lex.l"
 
 
-#line 741 "lex.yy.c"
+#line 743 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -807,133 +809,133 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 16 "lex.l"
+#line 18 "lex.l"
 {/* ignora */}
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 18 "lex.l"
+#line 20 "lex.l"
 { /* ignora */ }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 20 "lex.l"
+#line 22 "lex.l"
 { return TOK_TRUE; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 21 "lex.l"
+#line 23 "lex.l"
 { return TOK_FALSE; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 23 "lex.l"
+#line 25 "lex.l"
 { return TOK_PRINT; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 24 "lex.l"
+#line 26 "lex.l"
 { return TOK_IF; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 25 "lex.l"
+#line 27 "lex.l"
 { return TOK_ELSE; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 26 "lex.l"
+#line 28 "lex.l"
 { return TOK_FOR; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 28 "lex.l"
+#line 30 "lex.l"
 { return TOK_OR; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 29 "lex.l"
+#line 31 "lex.l"
 { return TOK_AND; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 30 "lex.l"
+#line 32 "lex.l"
 { return TOK_EQUALS; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 31 "lex.l"
+#line 33 "lex.l"
 { return TOK_Minor_LEFTEqual; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 32 "lex.l"
+#line 34 "lex.l"
 { return TOK_Big_LEFTEqual; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 33 "lex.l"
+#line 35 "lex.l"
 { return TOK_BIG_LEFT; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 34 "lex.l"
+#line 36 "lex.l"
 { return TOK_BIG_RIGHT; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 36 "lex.l"
+#line 38 "lex.l"
 { return '+'; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 37 "lex.l"
+#line 39 "lex.l"
 { return '-'; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 38 "lex.l"
+#line 40 "lex.l"
 { return '*'; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 39 "lex.l"
+#line 41 "lex.l"
 { return '/'; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 40 "lex.l"
+#line 42 "lex.l"
 { return '{'; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 41 "lex.l"
+#line 43 "lex.l"
 { return '}'; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 42 "lex.l"
+#line 44 "lex.l"
 { return '('; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 43 "lex.l"
+#line 45 "lex.l"
 { return ')'; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 44 "lex.l"
+#line 46 "lex.l"
 { return ';'; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 45 "lex.l"
+#line 47 "lex.l"
 { return '='; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 47 "lex.l"
+#line 49 "lex.l"
 {
     yylval.str = strndup(yytext, yyleng);
     return TOK_IDENT;
@@ -941,7 +943,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 52 "lex.l"
+#line 54 "lex.l"
 {
     yylval.flt = atof(yytext);
     return TOK_FLOAT;
@@ -949,7 +951,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 57 "lex.l"
+#line 59 "lex.l"
 {
     yylval.itg = atoi(yytext);
     return TOK_INT;
@@ -957,17 +959,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 63 "lex.l"
+#line 65 "lex.l"
 {
      printf("Símbolo não reconhecido %c\n", yytext[0]); 
   }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 70 "lex.l"
+#line 72 "lex.l"
 ECHO;
 	YY_BREAK
-#line 971 "lex.yy.c"
+#line 973 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1984,18 +1986,20 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 70 "lex.l"
+#line 72 "lex.l"
 
 
 int yywrap() {
   return 1;
 }
 
-extern int errorcount;
+extern int error_count;
+
 int yyerror(const char *s){
-  printf("Syntax error %d: %s\n", yylineno, s);
-  errorcount++;
-  return 1;
+    printf("%s:%d:0: %s\n",
+        build_file_name, yylineno, s);
+    error_count++;
+    return 1;
 }
 
 int main(int argc, char *argv[]){
@@ -2005,17 +2009,27 @@ int main(int argc, char *argv[]){
       return 1;
     }
 
-    yyin = fopen(argv[1], "r");
+    int build_file_id=1;
+    
+    if(strcmp(argv[1], "-f") == 0){
+        force_print_tree = true;
+        build_file_id++;
+    }
+
+    build_file_name = argv[build_file_id];
+
+    yyin = fopen(build_file_name, "r");
+
     if(yyin == NULL){
-      printf("Não foi possível abrir o arquivo %s.\n", argv[1]);
+      printf("Não foi possível abrir o arquivo %s.\n", build_file_name);
       return 1;
     }
 
     yyparse();
 
-    if(yyin){
+    if(yyin)
       fclose(yyin);
-    }
+    
     
     return 0;
 
