@@ -58,51 +58,107 @@ program : globals {
         cout << error_count << " error(s) found." << endl;
     if (error_count == 0 || force_print_tree) 
         printf_tree(program);
-} ;
+};
 
 globals : globals[gg] global {
                $gg->append($global);
                $$ = $gg;
           }
-        | global {
+          | global {
                Node *n = new Node();
                n->append($global);
                $$ = n;
           }
 
-global : TOK_IDENT '=' expr ';' { $$ = new Variable($TOK_IDENT, $expr); }
-       | TOK_PRINT TOK_IDENT ';' {
+global : TOK_IDENT '=' expr ';' {  $$ = new Variable($TOK_IDENT, $expr); }
+     | TOK_PRINT TOK_IDENT ';' {
           Ident *id = new Ident($TOK_IDENT);
           $$ = new Print(id);
        }
-       | repetition {}
-       | decision {}
-       | error ';' { $$ = new Node(); }
 
-decision  : TOK_IF '('comparison_1')' '{' globals '}' {}
-          | TOK_IF '('comparison_1')' '{' globals '}' else {}
+global : repetition {
+     $$ = $repetition;
+}
+
+global : decision {
+     $$ = $decision;
+}
+
+global : error ';' { 
+     $$ = new Node(); 
+     }
+
+decision  : TOK_IF '('comparison_1')' '{' globals '}' {
+
+}
+
+decision  : TOK_IF '('comparison_1')' '{' globals '}' else {
+
+}
           
-else : TOK_ELSE '{' globals '}' {}
-     | TOK_ELSE decision{}
+else : TOK_ELSE '{' globals '}' {
 
-repetition:  TOK_FOR'(' comparison_1 ';' TOK_IDENT '=' expr')''{' globals '}' {}
+}
 
-comparison_1 : comparison_1 TOK_OR comparison_2 {}
-		   | comparison_2 {}						
+else : TOK_ELSE decision{
+     
+}
+
+repetition:  TOK_FOR'(' comparison_1 ';' TOK_IDENT '=' expr')''{' globals '}' {
+
+}
+
+comparison_1 : comparison_1 TOK_OR comparison_2 {
+
+}
+
+comparison_1 : comparison_2 {
+     $$ = $comparison_2;
+}						
 		  
-comparison_2 : comparison_2 TOK_AND comparison_3 {}
-		   | comparison_3 {}				
+comparison_2 : comparison_2 TOK_AND comparison_3 {
 
-comparison_3  : expr verification expr {}
-              | '(' comparison_1 ')' {}
+}
 
-verification : TOK_EQUALS {}
-             | TOK_OR {}
-             | TOK_AND {}
-             | TOK_Big_LEFTEqual {}
-             | TOK_Minor_LEFTEqual {}
-             | TOK_BIG_LEFT {}
-             | TOK_BIG_RIGHT {}
+comparison_2 :  comparison_3 {
+     $$ = $comparison_3;
+}				
+
+comparison_3  : expr verification expr {
+
+}
+
+comparison_3  : '(' comparison_1 ')' {
+     $$ = $comparison_1;
+}
+
+verification : TOK_EQUALS {
+     $$ = $TOK_EQUALS;
+}
+
+verification :  TOK_OR {
+     $$ = $TOK_OR;
+}
+
+verification :  TOK_AND {
+     $$ = $TOK_AND;
+}
+
+verification :  TOK_Big_LEFTEqual {
+     $$ = $TOK_Big_LEFTEqual;
+}
+
+verification :  TOK_Minor_LEFTEqual {
+     $$ = $TOK_Minor_LEFTEqual;
+}
+
+verification :  TOK_BIG_LEFT {
+     $$ = $TOK_BIG_RIGHT;
+}
+
+verification :  TOK_BIG_RIGHT {
+     $$ = $TOK_BIG_RIGHT;
+}
          
 expr : expr[ee] '+' term { $$ = new BinaryOp($ee, $term, '+'); }
      | expr[ee] '-' term { $$ = new BinaryOp($ee, $term, '-'); }
@@ -116,11 +172,19 @@ term : term[tt] '*' factor { $$ = new BinaryOp($tt, $factor, '*'); }
 factor : TOK_IDENT {$$ = new Ident($TOK_IDENT); }
        | TOK_INT { $$ = new Integer($TOK_INT); }
        | TOK_FLOAT { $$ = new Float($TOK_FLOAT); }
-       | bool {}
        | unary { $$ = $unary; }
 
-bool : TOK_TRUE {}
-     | TOK_FALSE {}
+factor : bool {
+     $$ = $bool;
+}
+
+bool : TOK_TRUE {
+     $$ = $TOK_TRUE;
+}
+
+bool : TOK_FALSE {
+     $$ = $TOK_FALSE;
+}
 
 unary : '-' factor{
      $$ = new Unary($factor, '-');

@@ -25,6 +25,11 @@ public:
     virtual string toStr() {
         return "stmts";
     }
+    
+    virtual string toDebug(){
+        return toStr();
+    }
+
     void append(Node *n) {
         children.push_back(n);
     }
@@ -120,16 +125,20 @@ public:
         aux.push_back(operation);
         return aux;
     }
+
+    virtual string toDebug() override{
+        return toStr() + value.toDebug();
+    }
 };
 
 class BinaryOp : public Node {
 protected:
     Node *value1;
     Node *value2;
-    char operation;
+    string operation;
 
 public:
-    BinaryOp(Node *v1, Node *v2, char op) {
+    BinaryOp(Node *v1, Node *v2, string op) {
        value1 = v1;
        value2 = v2;
        operation = op;
@@ -141,6 +150,10 @@ public:
         string aux;
         aux.push_back(operation);
         return aux;
+    }
+
+    virtual string toDebug() override{
+        return value1.toDebug() + toStr() + value2.toDebug();
     }
 };
 
@@ -157,19 +170,21 @@ public:
     virtual string toStr() {
         return "imprimir";
     }
+
+    virtual string toDebug() override{
+        return toStr() + " " + value.toDebug();
+    }
 };
 
 void printf_tree_recursive(Node *noh){
     for(Node *c: noh->getChildren()){
         printf_tree_recursive(c);
     }
-    cout << "N" << (long int)noh << "[label=\"" <<
-        noh->toStr() << "\"];" << endl;
+    cout << "N" << (long int)noh << "[label=\"" << noh->toStr() << "\"];" << endl;
 
     //imprime as ligações com os filhos
     for(Node *c: noh->getChildren()){
-        cout << "N" << (long int)noh << "--" <<
-            "N" << (long int)c << ";" << endl;
+        cout << "N" << (long int)noh << "--" << "N" << (long int)c << ";" << endl;
     }
 }
 
@@ -192,7 +207,7 @@ class CheckVarDecl {
 
             Ident *id = dynamic_cast<Ident*>(noh);
             if(id){ //verifica se o noh é um ident
-                //aqui vai verificar se esta dentro do container
+                //Aqui vai verificar se esta dentro do container
                 if(symbols.count(id->getName()) <= 0){
                    cout << build_file_name
                         << ":"
