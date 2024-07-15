@@ -39,7 +39,7 @@ extern bool force_print_tree;
 %type<str> TOK_IDENT
 %type<itg> TOK_INT
 %type<flt> TOK_FLOAT
-%type<node> globals global decision else repetition comparison_1 comparison_2 comparison_3 verification expr term factor bool unary
+%type<node> globals global decision repetition comparison_1 comparison_2 comparison_3 verification expr term factor bool unary
 
 %start program
 
@@ -88,77 +88,31 @@ global : error ';' {
      $$ = new Node(); 
      }
 
-decision  : TOK_IF '('comparison_1')' '{' globals '}' {
+decision  : TOK_IF '('comparison_1')' '{' globals '}' { $$ = new IF_SOLTEIRO($comparison_1, $globals); }
+          | TOK_IF '('comparison_1')' '{' globals[g] '}' TOK_ELSE '{' globals[gg] '}' { $$ = new IF_CASADO($comparison_1,$g,$gg); }    
 
-}
+repetition:  TOK_FOR'('comparison_1 ')''{' globals '}' { $$ = new LOOP($comparison_1, $globals); }
 
-decision  : TOK_IF '('comparison_1')' '{' globals '}' else {
-
-}
-          
-else : TOK_ELSE '{' globals '}' {
-
-}
-
-else : TOK_ELSE decision{
-     
-}
-
-repetition:  TOK_FOR'(' comparison_1 ';' TOK_IDENT '=' expr')''{' globals '}' {
-
-}
-
-comparison_1 : comparison_1 TOK_OR comparison_2 {
-
-}
-
-comparison_1 : comparison_2 {
-     $$ = $comparison_2;
-}						
+comparison_1 : comparison_1[g1] TOK_OR comparison_2[g2] { $$ = new BinaryOpOTHER($g1, $g2, "||"); } 
+             | comparison_2 { $$ = $comparison_2; }						
 		  
-comparison_2 : comparison_2 TOK_AND comparison_3 {
+comparison_2 : comparison_2[g2] TOK_AND comparison_3[g3] { $$ = new BinaryOpOTHER($g2, $g3, "&&"); }
+             | comparison_3 { $$ = $comparison_3; }				
 
-}
+comparison_3  : expr TOK_EQUALS term { $$ = new BinaryOpOTHER($expr, $term, "=="); }
+              | expr TOK_Big_LEFTEqual term { $$ = new BinaryOpOTHER($expr, $term, ">="); }
+              | expr TOK_Minor_LEFTEqual term { $$ = new BinaryOpOTHER($expr, $term, "<="); }
+              | expr TOK_BIG_LEFT term { $$ = new BinaryOp($expr, $term, '>'); }
+              | expr TOK_BIG_RIGHT term { $$ = new BinaryOp($expr, $term, '<'); }
+              | '(' comparison_1 ')' { $$ = $comparison_1; }
 
-comparison_2 :  comparison_3 {
-     $$ = $comparison_3;
-}				
-
-comparison_3  : expr verification expr {
-
-}
-
-comparison_3  : '(' comparison_1 ')' {
-     $$ = $comparison_1;
-}
-
-verification : TOK_EQUALS {
-     $$ = $TOK_EQUALS;
-}
-
-verification :  TOK_OR {
-     $$ = $TOK_OR;
-}
-
-verification :  TOK_AND {
-     $$ = $TOK_AND;
-}
-
-verification :  TOK_Big_LEFTEqual {
-     $$ = $TOK_Big_LEFTEqual;
-}
-
-verification :  TOK_Minor_LEFTEqual {
-     $$ = $TOK_Minor_LEFTEqual;
-}
-
-verification :  TOK_BIG_LEFT {
-     $$ = $TOK_BIG_RIGHT;
-}
-
-verification :  TOK_BIG_RIGHT {
-     $$ = $TOK_BIG_RIGHT;
-}
+verification : TOK_EQUALS { $$ = new OPERATION("=="); }
+             | TOK_OR { $$ = new OPERATION("||"); }
+             | TOK_AND {$$ = new OPERATION("&&");  }
+             | TOK_Big_LEFTEqual { $$ = new OPERATION(">=");  }
+             | TOK_Minor_LEFTEqual { $$ = new OPERATION("<=");  }
+             | TOK_BIG_LEFT { $$ = new OPERATION(">"); }
+             | TOK_BIG_RIGHT { $$ = new OPERATION("<"); }
          
 expr : expr[ee] '+' term { $$ = new BinaryOp($ee, $term, '+'); }
      | expr[ee] '-' term { $$ = new BinaryOp($ee, $term, '-'); }
@@ -178,16 +132,9 @@ factor : bool {
      $$ = $bool;
 }
 
-bool : TOK_TRUE {
-     $$ = $TOK_TRUE;
-}
+bool : TOK_TRUE { $$ = new VDD(); }
+     | TOK_FALSE { $$ = new FLS(); }
 
-bool : TOK_FALSE {
-     $$ = $TOK_FALSE;
-}
-
-unary : '-' factor{
-     $$ = new Unary($factor, '-');
-}
+unary : '-' factor { $$ = new Unary($factor, '-'); }
 
 %%

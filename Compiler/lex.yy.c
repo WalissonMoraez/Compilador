@@ -966,7 +966,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 72 "lex.l"
+#line 71 "lex.l"
 ECHO;
 	YY_BREAK
 #line 973 "lex.yy.c"
@@ -1986,7 +1986,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 72 "lex.l"
+#line 71 "lex.l"
 
 
 int yywrap() {
