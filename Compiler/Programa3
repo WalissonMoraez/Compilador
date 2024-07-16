@@ -1,21 +1,24 @@
 PORTA_ABERTA=FLS;
 ABRIR=FLS;
-HORA= LocalTimeNOW;
+HORA=20;
 
 casofor(HORA<=21){
-    loop(HORA==22; HORA=LocalTimeNOW){
+    loop(HORA==22){
+        casofor(HORA<22.1){
+        HORA=20+0.1;
         casofor(PORTA_ABERTA==FLS){
             casofor(ABRIR==VDD){
                 PORTA_ABERTA = VDD;
             }naofoi{
                 PORTA_ABERTA = FLS;
             }
-        }naofoi casofor(PORTA_ABERTA == VDD){
+        }naofoi{
             casofor(ABRIR==FLS){
                 PORTA_ABERTA = FLS;
             }naofoi{
                 PORTA_ABERTA = VDD;
             }
+        }
         }
     }
 }

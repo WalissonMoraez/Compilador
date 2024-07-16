@@ -1,0 +1,19 @@
+Falta = 10;
+Nota_1 = 10;
+Nota_2= 4;
+Nota_3 = 8;
+situacao = 0;
+Media = (Nota_1+Nota_2+Nota_3)/3;
+//0 Aprovado 1 Reprovado
+
+loop(Nota_1 >= Nota_2){
+
+    casofor((Falta>10) || (Media<7)){
+        situacao = 1;
+        imprimir situacao;
+    }naofoi {
+        imprimir situacao;
+    }
+
+}
+

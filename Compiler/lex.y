@@ -105,6 +105,7 @@ comparison_3  : expr TOK_EQUALS term { $$ = new BinaryOpOTHER($expr, $term, "=="
               | expr TOK_BIG_LEFT term { $$ = new BinaryOp($expr, $term, '>'); }
               | expr TOK_BIG_RIGHT term { $$ = new BinaryOp($expr, $term, '<'); }
               | '(' comparison_1 ')' { $$ = $comparison_1; }
+              | factor { $$ = $factor; }
 
 verification : TOK_EQUALS { $$ = new OPERATION("=="); }
              | TOK_OR { $$ = new OPERATION("||"); }
@@ -127,10 +128,7 @@ factor : TOK_IDENT {$$ = new Ident($TOK_IDENT); }
        | TOK_INT { $$ = new Integer($TOK_INT); }
        | TOK_FLOAT { $$ = new Float($TOK_FLOAT); }
        | unary { $$ = $unary; }
-
-factor : bool {
-     $$ = $bool;
-}
+       | bool { $$ = $bool; }
 
 bool : TOK_TRUE { $$ = new VDD(); }
      | TOK_FALSE { $$ = new FLS(); }
