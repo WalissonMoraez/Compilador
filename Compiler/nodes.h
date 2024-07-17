@@ -3,6 +3,8 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <sstream>
+#include <string>
 
 extern int error_count;
 extern int yylineno;
@@ -47,6 +49,10 @@ protected:
 public:
     Integer(const int v) {
         value = v;
+    }
+
+    int getValue(){
+        return value;
     }
 
     virtual string toStr() override {
@@ -247,10 +253,10 @@ class IF_SOLTEIRO : public Node{
 };
 
 class IF_CASADO : public Node{
-     protected:
-    Node *var;
-    Node *ver;
-    Node *elsi;
+    protected:
+        Node *var;
+        Node *ver;
+        Node *elsi;
 
     public: 
         IF_CASADO(Node *v, Node *ve, Node *e){
@@ -330,5 +336,32 @@ class CheckVarDecl {
             if(var){
                 symbols.insert(var->getName());
             }
+        }  
+};
+
+class CheckVarSize{
+  private:
+        
+  public:
+        CheckVarSize() {}
+
+        void check(Node *noh) {
+            for(Node *c: noh->getChildren()){
+                check(c);
+            }
+            if(Integer *n = dynamic_cast<Integer*>(noh)){
+                if (n->getValue() > 9999)
+                {
+                    cout << build_file_name
+                        << ":"
+                        << n->getLineNo()
+                        << ":0: semantic error: " 
+                        << " Integer is too big"
+                        << endl;
+                    error_count++;
+                }
+                
+            }
+
         }  
 };

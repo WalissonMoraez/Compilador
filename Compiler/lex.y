@@ -52,7 +52,9 @@ program : globals {
     // aqui vai a analise semantica
 
     CheckVarDecl cvd;
-    cvd.check(program);
+    cvd.check(program); 
+    CheckVarSize cvs;
+    cvs.check(program);
 
     if(error_count>0) //caso ter erros nao printa a arvore
         cout << error_count << " error(s) found." << endl;
